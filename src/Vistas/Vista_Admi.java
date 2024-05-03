@@ -7,6 +7,7 @@ package Vistas;
 
 import charquitec.Codigo.GestionadorAdministrador;
 import charquitec.Codigo.GestionadorProducto;
+import charquitec.Codigo.GestionadorVendedor;
 import charquitec.Codigo.Producto;
 import charquitec.Codigo.Vendedor;
 import javax.swing.JOptionPane;
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Vista_Admi extends javax.swing.JPanel {
     DefaultTableModel modelo = new DefaultTableModel();
-
+    DefaultTableModel modelo2 = new DefaultTableModel();
     GestionadorAdministrador GestionadorAdministrador = new GestionadorAdministrador();
     
 
@@ -26,24 +27,24 @@ public class Vista_Admi extends javax.swing.JPanel {
         initComponents();
         Login.setVisible(true);
         VistaAdmin.setVisible(false);
-        agregarModeloTabla();
+        agregarModeloTablaProducto();
+        agregarModeloTablaEmpleado();
        
         
     }
-    private void agregarModeloTabla(){
+    private void agregarModeloTablaProducto(){
         modelo.addColumn("Nombre");
         modelo.addColumn("ID");
         modelo.addColumn("Precio");
-        modelo.addColumn("Cantidad");
-
-               
-        }
-     public void llenarTabla(GestionadorProducto unProducto){
-         
-       
-        
-        int cantidadDatos = unProducto.cantidadProductos();
-        
+        modelo.addColumn("Cantidad");          
+     }
+    private void agregarModeloTablaEmpleado(){
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Codigo");          
+     }
+     public void llenarTablaProducto(GestionadorProducto unProducto){   
+        int cantidadDatos = unProducto.cantidadProductos();       
         for( int i=0; i<cantidadDatos; i++){
             if (unProducto.unProducto[i] != null) {
             String nombre = unProducto.unProducto[i].getNombre();
@@ -56,7 +57,19 @@ public class Vista_Admi extends javax.swing.JPanel {
         }        
         }
     }
-
+     public void llenarTablaVendedor(GestionadorVendedor unVendedor){   
+        int cantidadDatos = unVendedor.cantidadVendedor();       
+        for( int i=0; i<cantidadDatos; i++){
+            if (unVendedor.unVendedor[i] != null) {
+            String nombre = unVendedor.unVendedor[i].getNombre();
+            String apellido = unVendedor.unVendedor[i].getApellido();
+            String ID = unVendedor.unVendedor[i].getCodigo();
+            
+            String [] listaVendedores = {ID,nombre,apellido};
+            modelo.addRow(listaVendedores);
+        }        
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -485,14 +498,16 @@ public class Vista_Admi extends javax.swing.JPanel {
     }//GEN-LAST:event_nomProductoActionPerformed
 
     private void btn_RegistrarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarVendedorActionPerformed
-        //Registrar Vendedor
+        //registrar vendedor
         String nombre = TNombreVendedor.getText();
         String apellido = TApellidoVendedor.getText();
         String codigo = TCodigoVendedor.getText();
-        Vendedor unvendedor = new Vendedor(nombre, apellido, codigo);
-        GestionadorAdministrador.RegistrarVendedor(unvendedor);
+        
+        GestionadorVendedor  ges = new GestionadorVendedor();
+        ges.registroVendedor(nombre,apellido, codigo);
 
-        TablaEmpleados.setText(GestionadorAdministrador.MostrarVendedor());
+        JOptionPane.showMessageDialog(null, "Producto registrado");
+        llenarTablaVendedor(ges);
     }//GEN-LAST:event_btn_RegistrarVendedorActionPerformed
 
     private void TNombreVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TNombreVendedorActionPerformed
@@ -500,22 +515,16 @@ public class Vista_Admi extends javax.swing.JPanel {
     }//GEN-LAST:event_TNombreVendedorActionPerformed
 
     private void btn_RegistrarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarProductoActionPerformed
-String nombre = nomProducto.getText();
-String ID = codProducto.getText();
-float precio = Float.parseFloat(precioProducto.getText());
-int cantidad = Integer.parseInt(cantProducto.getText());
-GestionadorProducto  ges = new GestionadorProducto();
-ges.registroProducto(nombre, ID, precio, cantidad);
+        //registrar producto
+        String nombre = nomProducto.getText();
+        String ID = codProducto.getText();
+        float precio = Float.parseFloat(precioProducto.getText());
+        int cantidad = Integer.parseInt(cantProducto.getText());
+        GestionadorProducto  ges = new GestionadorProducto();
+        ges.registroProducto(nombre, ID, precio, cantidad);
 
-JOptionPane.showMessageDialog(null, "Producto registrado");
-llenarTabla(ges);
-
-
-
-
-
-
-// TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Producto registrado");
+        llenarTablaProducto(ges);
     }//GEN-LAST:event_btn_RegistrarProductoActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
