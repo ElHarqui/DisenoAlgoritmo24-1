@@ -5,10 +5,6 @@
  */
 package charquitec.Codigo;
 
-/**
- *
- * @author csosa
- */
 public class GestionadorProducto {
     int MAX = 10; 
      int numDato=0;

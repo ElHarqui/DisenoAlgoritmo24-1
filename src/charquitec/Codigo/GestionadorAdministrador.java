@@ -7,10 +7,7 @@ package charquitec.Codigo;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author csosa
- */
+
 public class GestionadorAdministrador {
     private String usuario="wonder";
     private String contrasena="123";
