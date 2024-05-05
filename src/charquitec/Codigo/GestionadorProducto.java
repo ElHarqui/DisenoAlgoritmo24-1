@@ -42,5 +42,23 @@ public class GestionadorProducto {
             numDato = numDato+1;
         }
     }
+    public int ObtenerCantidad(String codigo){
+        int cantidad=0;
+        for(int i=0; i< numDato - 1; i++) {
+            if(codigo.equals(unProducto[i].getID())){
+                cantidad=unProducto[i].getCantidad();
+                System.out.println("Se leyo esto");
+            }
+        }
+        return cantidad;
+    }
+    public void ActualizarCantidad(String codigo,int cantidad){
+        for(int i=0; i< numDato - 1; i++) {
+            if(codigo==unProducto[i].getID()){
+                unProducto[i].setCantidad(cantidad);
+            }
+        }
+    }
+    
     }
 
