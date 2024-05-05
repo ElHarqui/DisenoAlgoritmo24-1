@@ -546,9 +546,7 @@ public class Vista_Admi extends javax.swing.JPanel {
 
         JOptionPane.showMessageDialog(null, "Producto registrado");
         llenarTablaProducto(ges);
-        Vista_Vendedor Vista_Vendedor=new Vista_Vendedor();
-        Vista_Vendedor.llenarTablaProducto(ges);
-        System.out.println("paso1");
+        
         nomProducto.setText("");
         codProducto.setText("");
         precioProducto.setText("");
@@ -570,8 +568,6 @@ public class Vista_Admi extends javax.swing.JPanel {
                     modelo.removeRow(tblProductos.getSelectedRow());
                     GestionadorProducto ges = new GestionadorProducto();
                 ges.eliminarProducto(codigo);
-                Vista_Vendedor Vista_Vendedor=new Vista_Vendedor();
-                Vista_Vendedor.llenarTablaProducto(ges);
                 JOptionPane.showMessageDialog(null,"producto eliminado con exito");
             }
         }catch(Exception e){
