@@ -558,7 +558,9 @@ public class Vista_Admi extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         //eliminar producto
         try{
+            
             int fila = tblProductos.getSelectedRow();
+            System.out.println(tblProductos.getSelectedRow());
             if(fila==-1){
                 JOptionPane.showMessageDialog(null, "seleecione una fila ");
                 

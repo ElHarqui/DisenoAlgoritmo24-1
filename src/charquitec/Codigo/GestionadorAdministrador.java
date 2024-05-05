@@ -30,12 +30,4 @@ public class GestionadorAdministrador {
     public void RegistrarProducto(Producto unproducto){
         arregloProducto.add(unproducto);
     }
-    public String MostrarVendedor(){
-        String datosVendedor="----LISTA VENDEDORES-----";
-        for(int i=0;i<arregloVendedor.size();i++){
-            datosVendedor=arregloVendedor.toString()+datosVendedor;
-            
-        }
-        return datosVendedor;
-    }
 }

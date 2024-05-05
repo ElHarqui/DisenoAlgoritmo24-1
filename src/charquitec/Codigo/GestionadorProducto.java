@@ -31,6 +31,16 @@ public class GestionadorProducto {
                 numDato--;
             }
         }
-    }   
+    }  
+    public void registroProductoCarrito(String ID,String nombre,  float precio, int cantidad){
+        if(numDato>=MAX){
+
+        }
+        else{
+            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
+            this.unProducto[numDato]=ObjDato;
+            numDato = numDato+1;
+        }
+    }
     }
 
