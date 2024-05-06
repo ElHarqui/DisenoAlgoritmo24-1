@@ -6,7 +6,7 @@
 package Vistas;
 
 import charquitec.Codigo.GestionadorAdministrador;
-import charquitec.Codigo.GestionadorProducto;
+import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorVendedor;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -45,7 +45,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         modelo2.addColumn("Nombre");
         modelo2.addColumn("Apellido");         
      }
-     public void llenarTablaProducto(GestionadorProducto unProducto){   
+     public void llenarTablaProducto(GestionadorProductoAlmacen unProducto){   
         int cantidadDatos = unProducto.cantidadProductos();       
         for( int i=0; i<cantidadDatos; i++){
             if (unProducto.unProducto[i] != null) {
@@ -541,7 +541,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         String ID = codProducto.getText();
         float precio = Float.parseFloat(precioProducto.getText());
         int cantidad = Integer.parseInt(cantProducto.getText());
-        GestionadorProducto  ges = new GestionadorProducto();
+        GestionadorProductoAlmacen  ges = new GestionadorProductoAlmacen();
         ges.registroProducto(ID, nombre, precio, cantidad);
 
         JOptionPane.showMessageDialog(null, "Producto registrado");
@@ -566,7 +566,7 @@ public class Vista_Admi extends javax.swing.JPanel {
             String codigo = tblProductos.getValueAt(fila, 0).toString();
                    
                     modelo.removeRow(tblProductos.getSelectedRow());
-                    GestionadorProducto ges = new GestionadorProducto();
+                    GestionadorProductoAlmacen ges = new GestionadorProductoAlmacen();
                 ges.eliminarProducto(codigo);
                 JOptionPane.showMessageDialog(null,"producto eliminado con exito");
             }

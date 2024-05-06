@@ -6,7 +6,7 @@ package Vistas;
 
 import charquitec.Codigo.Cliente;
 import charquitec.Codigo.GestionadorCliente;
-import charquitec.Codigo.GestionadorProducto;
+import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorProductoCarrito;
 import charquitec.Codigo.GestionadorVendedor;
 import javax.swing.JOptionPane;
@@ -154,7 +154,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                             .addComponent(TDNICliente))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Vista_RegistroClienteLayout.createSequentialGroup()
-                .addContainerGap(390, Short.MAX_VALUE)
+                .addContainerGap(462, Short.MAX_VALUE)
                 .addComponent(jButton4)
                 .addGap(136, 136, 136))
         );
@@ -269,7 +269,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                                         .addComponent(jLabel8)
                                         .addGap(23, 23, 23)
                                         .addComponent(TCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         VistaVendedorLayout.setVerticalGroup(
             VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -310,10 +310,11 @@ public class Vista_Vendedor extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // finaliza registrar cliente
+        GestionadorCliente ges=new GestionadorCliente();
+        ges.LeerClientes();
         String nombre=TNombreCliente.getText();
         String apellido=TApellidoCliente.getText();
         String codigo=TDNICliente.getText();
-        GestionadorCliente ges=new GestionadorCliente();
         ges.registroCliente(nombre, apellido, codigo);
         
         LabelIDCliente.setText(codigo);
@@ -359,12 +360,12 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     public void RestarCantidad(int fila,int columna,String codigo,int cantidadCarrito){
         int CantidadRestanteStock=0;
         int CantidadActualStock=0;
-        GestionadorProducto stock=new GestionadorProducto();
+        GestionadorProductoAlmacen stock=new GestionadorProductoAlmacen();
         CantidadActualStock =stock.ObtenerCantidad(codigo);
         System.out.println("catnidad:"+CantidadActualStock);
         CantidadRestanteStock=CantidadActualStock-cantidadCarrito;
         
-        GestionadorProducto prod=new GestionadorProducto();
+        GestionadorProductoAlmacen prod=new GestionadorProductoAlmacen();
         prod.ActualizarCantidad(codigo, CantidadRestanteStock);
         
         TblListaProductos.setValueAt(CantidadRestanteStock, fila, columna);
@@ -385,6 +386,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     
     private void btn_RegistrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_RegistrarClienteActionPerformed
         // registrar cliente
+        
         Vista_RegistroCliente.setVisible(true);
         VistaVendedor.setVisible(false);
     }//GEN-LAST:event_btn_RegistrarClienteActionPerformed

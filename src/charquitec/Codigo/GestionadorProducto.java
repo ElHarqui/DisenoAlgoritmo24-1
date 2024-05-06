@@ -1,8 +1,15 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package charquitec.Codigo;
 
 import java.util.List;
 
+/**
+ *
+ * @author CARLOS
+ */
 public class GestionadorProducto {
     final int MAX = 10; 
     int numDato=0;
@@ -58,16 +65,6 @@ public class GestionadorProducto {
             }
         }
     }  
-    public void registroProductoCarrito(String ID,String nombre,  float precio, int cantidad){
-        if(numDato < MAX){
-            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
-            this.unProducto[numDato]=ObjDato;
-            numDato = numDato+1;
-        }
-        else{
-            System.out.println("Limite de Productos sobrepasado");
-        }
-    }
     public int ObtenerCantidad(String codigo){
         int cantidad=0;
         for(int i=0; i< numDato - 1; i++) {
@@ -86,5 +83,4 @@ public class GestionadorProducto {
         }
     }
     
-    }
-
+}

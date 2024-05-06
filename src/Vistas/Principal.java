@@ -5,7 +5,7 @@
  */
 package Vistas;
 
-import charquitec.Codigo.GestionadorProducto;
+import charquitec.Codigo.GestionadorProductoAlmacen;
 
 
 public class Principal extends javax.swing.JFrame {
@@ -114,6 +114,7 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Principal().setVisible(true);
+                
             }
         });
     }
