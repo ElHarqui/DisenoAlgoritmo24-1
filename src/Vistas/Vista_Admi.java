@@ -59,13 +59,13 @@ public class Vista_Admi extends javax.swing.JPanel {
         }        
         }
     }
-     public void llenarTablaVendedor(GestionadorVendedor unVendedor){   
-        int cantidadDatos = unVendedor.cantidadVendedor();       
+     public void llenarTablaVendedor(GestionadorVendedor unPersona){   
+        int cantidadDatos = unPersona.cantidadPersona();       
         for( int i=0; i<cantidadDatos; i++){
-            if (unVendedor.unVendedor[i] != null) {
-            String nombre = unVendedor.unVendedor[i].getNombre();
-            String apellido = unVendedor.unVendedor[i].getApellido();
-            String ID = unVendedor.unVendedor[i].getCodigo();
+            if (unPersona.unPersona[i] != null) {
+            String nombre = unPersona.unPersona[i].getNombre();
+            String apellido = unPersona.unPersona[i].getApellido();
+            String ID = unPersona.unPersona[i].getCodigo();
             
             String [] listaVendedores = {ID,nombre,apellido};
             modelo2.addRow(listaVendedores);
@@ -522,7 +522,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         String codigo = TCodigoVendedor.getText();
         
         GestionadorVendedor  ges = new GestionadorVendedor();
-        ges.registroVendedor(nombre,apellido, codigo);
+        ges.Registrar(nombre,apellido, codigo);
 
         JOptionPane.showMessageDialog(null, "Vendedor registrado");   
         llenarTablaVendedor(ges);
@@ -586,7 +586,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 String codigo = tblVendedor.getValueAt(fila, 0).toString();                
                 modelo2.removeRow(tblVendedor.getSelectedRow());
                 GestionadorVendedor ges = new GestionadorVendedor();
-                ges.eliminarVendedor(codigo);
+                ges.Eliminar(codigo);
                 JOptionPane.showMessageDialog(null,"Vendedor eliminado con exito");
             }
         }catch(Exception e){

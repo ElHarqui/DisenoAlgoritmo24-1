@@ -5,10 +5,9 @@ import java.util.List;
 
 public class GestionadorVendedor extends GestionadorPersona {
 
-    GestionadorVendedor(){
+    public GestionadorVendedor(){
         unPersona = new Vendedor[MAX];
     }
-    
     
     @Override
     public void Registrar(String nombre,String apellido, String codigo){
@@ -20,8 +19,7 @@ public class GestionadorVendedor extends GestionadorPersona {
         }else{
             System.out.println("Limite de Vendedores sobrepasado");
         }
-    }
-    
+    } 
     
     @Override
     public void LeerDatosXML(String NombreArchivo){     //Lee el archivo xml y lo guarda en clases como el metodo registroVendedor() pero solo al iniciar el programa
@@ -37,7 +35,6 @@ public class GestionadorVendedor extends GestionadorPersona {
                Vendedor ObjDato = new Vendedor(DataUsuario[1] ,DataUsuario[2],DataUsuario[0]);
                this.unPersona[numDato]=ObjDato;
                numDato = numDato+1;        
-
            }           
         }else{
             System.out.println("Limite de vendedores sobrepasado");

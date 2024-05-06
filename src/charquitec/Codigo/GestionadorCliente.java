@@ -1,17 +1,14 @@
 
 package charquitec.Codigo;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class GestionadorCliente extends GestionadorPersona {
     
-    GestionadorCliente(){
+    public GestionadorCliente(){
         unPersona = new Cliente[MAX];
     }
-    
-    
+
     @Override
     public void Registrar(String nombre,String apellido, String codigo){
         if(numDato < MAX){
