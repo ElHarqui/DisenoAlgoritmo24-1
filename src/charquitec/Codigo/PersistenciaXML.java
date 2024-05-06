@@ -14,7 +14,7 @@ public class PersistenciaXML {
     private File file; // Referencia al archivo XML
 
     public PersistenciaXML(String filename) {
-        this.file = new File(filename); // Inicializar el archivo con el nombre proporcionado
+        this.file = new File("/Data/"+filename); // Inicializar el archivo con el nombre proporcionado
     }
 
     public List<String> LeerArchivoXML() {

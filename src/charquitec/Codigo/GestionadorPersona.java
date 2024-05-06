@@ -13,7 +13,7 @@ public abstract class GestionadorPersona {
     public abstract void LeerDatosXML();
     
     public void GuardarDatoXML(String StringXML,String NombreArchivo){
-       PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+NombreArchivo+".xml");
+       PersistenciaXML Data = new PersistenciaXML(NombreArchivo+".xml");
        Data.EscribirLineaXML(StringXML);     
     }
 

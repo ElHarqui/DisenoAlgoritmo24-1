@@ -23,13 +23,13 @@ public class GestionadorProducto {
         }
     }
     public void GuardarProducto(String StringXML,String NombreArchivo){
-       PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+NombreArchivo+".xml");
+       PersistenciaXML Data = new PersistenciaXML(NombreArchivo+".xml");
        Data.EscribirLineaXML(StringXML);
        
     }
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
         this.numDato = 0;
-        PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+"DataProductos"+".xml");//Nombre de la ruta del archivo .xml
+        PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");//Nombre de la ruta del archivo .xml
         List<String> ProductosLeidos = Data.LeerArchivoXML();  //Guardar cada linea en un espacio del List<String>
         int tamano = ProductosLeidos.size();                   //Obtener el largo del List<String>
         String ProductoLeido ; 

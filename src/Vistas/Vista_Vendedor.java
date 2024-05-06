@@ -354,7 +354,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                 RestarCantidad(TblListaProductos.getSelectedRow(),3,codigo,cantidadProducto);    
                         
                 GestionadorProductoCarrito ges = new GestionadorProductoCarrito();
-                ges.registroProductoCarrito(codigo, nombre, precio, cantidadProducto);
+                //ges.registroProductoCarrito(codigo, nombre, precio, cantidadProducto);
                 JOptionPane.showMessageDialog(null, "Producto añadido al carrito");
                 llenarTablaProducto(ges);
                 
@@ -413,7 +413,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                 String codigo = TblProductosCarrito.getValueAt(fila, 0).toString();
                 modeloCarritoProductos.removeRow(TblProductosCarrito.getSelectedRow());
                 GestionadorProductoCarrito ges = new GestionadorProductoCarrito();
-                ges.eliminarProductoCarrito(codigo);
+                //ges.eliminarProductoCarrito(codigo);
                 JOptionPane.showMessageDialog(null,"Producto eliminado con exito");
                 float Monto=CalcularMonto();
                 String monto=Float.toString(Monto);
