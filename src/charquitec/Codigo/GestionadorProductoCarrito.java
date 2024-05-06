@@ -1,24 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package charquitec.Codigo;
 
-/**
- *
- * @author CARLOS
- */
+
 public class GestionadorProductoCarrito {
-    int MAX = 10; 
+    final int MAX = 10; 
     int numDato=0;
     public  Producto [] unProductoCarrito = new Producto[MAX];
     
-    public void registroProductoCarrito(String ID, String nombre, float precio, int cantidad){
-        if(numDato>=MAX){
-
-        }
-        else{
-            Producto ObjDato = new Producto(ID  ,nombre,precio,cantidad);
+    public void registroProducto(String nombre, String ID, float precio, int cantidad){
+        if(numDato < MAX){
+            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
             this.unProductoCarrito[numDato]=ObjDato;
             numDato = numDato+1;
         }
@@ -27,7 +18,7 @@ public class GestionadorProductoCarrito {
     public int cantidadProductos(){   
         return numDato;
     }
-    public void eliminarProductoCarrito(String codigo){
+    public void eliminarProducto(String codigo){
         for(int i = 0; i < numDato; i++) {
             if (unProductoCarrito[i].getID().equals(codigo)) {
                 // Mover los elementos restantes una posición hacia atrás
@@ -38,5 +29,15 @@ public class GestionadorProductoCarrito {
                 numDato--;
             }
         }
-    }   
+    }  
+    public void registroProductoCarrito(String ID,String nombre,  float precio, int cantidad){
+        if(numDato>=MAX){
+
+        }
+        else{
+            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
+            this.unProductoCarrito[numDato]=ObjDato;
+            numDato = numDato+1;
+        }
+    }  
 }
