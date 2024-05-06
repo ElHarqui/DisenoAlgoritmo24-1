@@ -14,7 +14,7 @@ public class PersistenciaXML {
     private File file; // Referencia al archivo XML
 
     public PersistenciaXML(String filename) {
-        this.file = new File("/Data/"+filename); // Inicializar el archivo con el nombre proporcionado
+        this.file = new File(".\\src\\charquitec\\Data\\"+filename); // Inicializar el archivo con el nombre proporcionado
     }
 
     public List<String> LeerArchivoXML() {
@@ -34,6 +34,7 @@ public class PersistenciaXML {
         try (FileWriter writer = new FileWriter(file, file.exists())) { // Abrir el archivo para escritura (modo de anexión si existe)
             writer.write(line + "\n"); // Escribir la línea de texto seguida de un salto de línea
         } catch (IOException e) { // Manejar excepciones de E/S
+            System.out.println("ERROR EN PERSISTENCIAXML");
             e.printStackTrace(); // Imprimir la traza de la excepción
         }
     }

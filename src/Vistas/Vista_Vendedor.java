@@ -320,7 +320,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // finaliza registrar cliente
         GestionadorCliente ges=new GestionadorCliente();
-        ges.LeerDatosXML();
+        //ges.LeerDatosXML();
         String nombre=TNombreCliente.getText();
         String apellido=TApellidoCliente.getText();
         String codigo=TDNICliente.getText();
