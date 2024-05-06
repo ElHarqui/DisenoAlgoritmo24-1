@@ -10,7 +10,7 @@ public abstract class GestionadorPersona {
     public  Persona [] unPersona;
     
     public abstract void Registrar(String nombre,String apellido, String codigo);
-    public abstract void LeerDatosXML(String NombreArchivo);
+    public abstract void LeerDatosXML();
     
     public void GuardarDatoXML(String StringXML,String NombreArchivo){
        PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+NombreArchivo+".xml");

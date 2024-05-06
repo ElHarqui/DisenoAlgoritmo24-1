@@ -1,11 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package Vistas;
 
 import charquitec.Codigo.Cliente;
 import charquitec.Codigo.GestionadorCliente;
+import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorProductoCarrito;
 import charquitec.Codigo.GestionadorVendedor;
@@ -31,8 +29,10 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         initComponents();      
         //TblListaProductos=new JTable(Vista_Admi.getModelo());
         //jScrollPane2= new JScrollPane(TablaLista);
+        GestionadorProducto GesProduct = new GestionadorProducto();
+        GesProduct.LeerDatosXML();
         agregarModeloTablaProducto();
-        llenarDatosEjemplo();
+        llenarDatosEjemplo(GesProduct);
         agregarModeloCarritoProducto();
         
         VistaVendedor.setVisible(true);
@@ -52,7 +52,15 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         modeloCarritoProductos.addColumn("Cantidad"); 
         
      }
-    private void llenarDatosEjemplo(){
+    private void llenarDatosEjemplo(GestionadorProducto GesProduct){
+        //DATOS
+        
+        int tope = GesProduct.getnumDato();
+        for(int i = 0 ; i< tope; i++){
+            Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getCantidad(),GesProduct.getProducto(i).getPrecio()};
+            modeloReplica.addRow(fila);
+        }
+        /*
         Object[] fila1 = {"001", "Producto 1", 10, 10};
         Object[] fila2 = {"002", "Producto 2", 10, 10};
         Object[] fila3 = {"003", "Producto 3", 10, 10};
@@ -61,6 +69,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         modeloReplica.addRow(fila2);
         modeloReplica.addRow(fila3);
         modeloReplica.addRow(fila4);
+        */
     }
      public void llenarTablaProducto(GestionadorProductoCarrito unProducto){   
         int cantidadDatos = unProducto.cantidadProductos();       
@@ -311,11 +320,11 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // finaliza registrar cliente
         GestionadorCliente ges=new GestionadorCliente();
-        ges.LeerClientes();
+        ges.LeerDatosXML();
         String nombre=TNombreCliente.getText();
         String apellido=TApellidoCliente.getText();
         String codigo=TDNICliente.getText();
-        ges.registroCliente(nombre, apellido, codigo);
+        ges.Registrar(nombre, apellido, codigo);
         
         LabelIDCliente.setText(codigo);
         VistaVendedor.setVisible(true);

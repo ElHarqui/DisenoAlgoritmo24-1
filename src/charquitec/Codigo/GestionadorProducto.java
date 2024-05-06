@@ -1,19 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package charquitec.Codigo;
 
 import java.util.List;
 
-/**
- *
- * @author CARLOS
- */
+
 public class GestionadorProducto {
     final int MAX = 10; 
     int numDato=0;
     public  Producto [] unProducto = new Producto[MAX];
+    public GestionadorProducto(){
+        
+    }
     
     public void registroProducto(String nombre, String ID, float precio, int cantidad){
         if(numDato < MAX){
@@ -30,7 +27,7 @@ public class GestionadorProducto {
        Data.EscribirLineaXML(StringXML);
        
     }
-    public void LeerProductos(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
+    public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
         this.numDato = 0;
         PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+"DataProductos"+".xml");//Nombre de la ruta del archivo .xml
         List<String> ProductosLeidos = Data.LeerArchivoXML();  //Guardar cada linea en un espacio del List<String>
@@ -81,6 +78,12 @@ public class GestionadorProducto {
                 unProducto[i].setCantidad(cantidad);
             }
         }
+    }
+    public int getnumDato(){
+        return this.numDato;
+    }
+    public Producto getProducto(int i){
+        return this.unProducto[i];
     }
     
 }

@@ -22,9 +22,9 @@ public class GestionadorVendedor extends GestionadorPersona {
     } 
     
     @Override
-    public void LeerDatosXML(String NombreArchivo){     //Lee el archivo xml y lo guarda en clases como el metodo registroVendedor() pero solo al iniciar el programa
+    public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroVendedor() pero solo al iniciar el programa
         this.numDato = 0;
-        PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+NombreArchivo+".xml");//Nombre de la ruta del archivo .xml
+        PersistenciaXML Data = new PersistenciaXML("charquitec\\Data\\"+"DataVendedores"+".xml");//Nombre de la ruta del archivo .xml
         List<String> UsuariosLeidos = Data.LeerArchivoXML();  //Guardar cada linea en un espacio del List<String>
         int tamano = UsuariosLeidos.size();                   //Obtener el largo del List<String>
         String UsuarioLeido ; 
