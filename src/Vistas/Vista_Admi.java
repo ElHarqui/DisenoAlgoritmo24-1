@@ -542,7 +542,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         float precio = Float.parseFloat(precioProducto.getText());
         int cantidad = Integer.parseInt(cantProducto.getText());
         GestionadorProducto  ges = new GestionadorProducto();
-        ges.registroProducto(nombre, ID, precio, cantidad);
+        ges.registroProducto(ID, nombre, precio, cantidad);
 
         JOptionPane.showMessageDialog(null, "Producto registrado");
         llenarTablaProducto(ges);
@@ -563,7 +563,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "seleecione una fila ");
                 
             }else{
-            String codigo = tblProductos.getValueAt(fila, 1).toString();
+            String codigo = tblProductos.getValueAt(fila, 0).toString();
                    
                     modelo.removeRow(tblProductos.getSelectedRow());
                     GestionadorProducto ges = new GestionadorProducto();
@@ -583,10 +583,9 @@ public class Vista_Admi extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "seleecione una fila ");
                 
             }else{
-            String codigo = tblVendedor.getValueAt(fila, 1).toString();
-                   
-                    modelo2.removeRow(tblVendedor.getSelectedRow());
-                    GestionadorVendedor ges = new GestionadorVendedor();
+                String codigo = tblVendedor.getValueAt(fila, 0).toString();                
+                modelo2.removeRow(tblVendedor.getSelectedRow());
+                GestionadorVendedor ges = new GestionadorVendedor();
                 ges.eliminarVendedor(codigo);
                 JOptionPane.showMessageDialog(null,"Vendedor eliminado con exito");
             }

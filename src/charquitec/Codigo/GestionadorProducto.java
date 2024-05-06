@@ -6,12 +6,12 @@ public class GestionadorProducto {
     int numDato=0;
     public  Producto [] unProducto = new Producto[MAX];
     
-    public void registroProducto(String nombre, String ID, float precio, int cantidad){
+    public void registroProducto(String ID, String nombre, float precio, int cantidad){
         if(numDato>=MAX){
 
         }
         else{
-            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
+            Producto ObjDato = new Producto(ID  ,nombre,precio,cantidad);
             this.unProducto[numDato]=ObjDato;
             numDato = numDato+1;
         }
@@ -32,16 +32,6 @@ public class GestionadorProducto {
             }
         }
     }  
-    public void registroProductoCarrito(String ID,String nombre,  float precio, int cantidad){
-        if(numDato>=MAX){
-
-        }
-        else{
-            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
-            this.unProducto[numDato]=ObjDato;
-            numDato = numDato+1;
-        }
-    }
     public int ObtenerCantidad(String codigo){
         int cantidad=0;
         for(int i=0; i< numDato - 1; i++) {
@@ -54,7 +44,7 @@ public class GestionadorProducto {
     }
     public void ActualizarCantidad(String codigo,int cantidad){
         for(int i=0; i< numDato - 1; i++) {
-            if(codigo==unProducto[i].getID()){
+            if(codigo.equals(unProducto[i].getID())){
                 unProducto[i].setCantidad(cantidad);
             }
         }

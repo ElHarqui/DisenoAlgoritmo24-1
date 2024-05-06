@@ -13,12 +13,12 @@ public class GestionadorProductoCarrito {
     int numDato=0;
     public  Producto [] unProductoCarrito = new Producto[MAX];
     
-    public void registroProducto(String nombre, String ID, float precio, int cantidad){
+    public void registroProductoCarrito(String ID, String nombre, float precio, int cantidad){
         if(numDato>=MAX){
 
         }
         else{
-            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
+            Producto ObjDato = new Producto(ID  ,nombre,precio,cantidad);
             this.unProductoCarrito[numDato]=ObjDato;
             numDato = numDato+1;
         }
@@ -27,7 +27,7 @@ public class GestionadorProductoCarrito {
     public int cantidadProductos(){   
         return numDato;
     }
-    public void eliminarProducto(String codigo){
+    public void eliminarProductoCarrito(String codigo){
         for(int i = 0; i < numDato; i++) {
             if (unProductoCarrito[i].getID().equals(codigo)) {
                 // Mover los elementos restantes una posición hacia atrás
@@ -38,15 +38,5 @@ public class GestionadorProductoCarrito {
                 numDato--;
             }
         }
-    }  
-    public void registroProductoCarrito(String ID,String nombre,  float precio, int cantidad){
-        if(numDato>=MAX){
-
-        }
-        else{
-            Producto ObjDato = new Producto(nombre  ,ID,precio,cantidad);
-            this.unProductoCarrito[numDato]=ObjDato;
-            numDato = numDato+1;
-        }
-    }  
+    }   
 }
