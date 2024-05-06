@@ -33,9 +33,7 @@ public class GestionadorProducto {
         PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
        
         List<String> ProductosLeidos = Data.LeerArchivoXML();
-        ;
-        //Nombre de la ruta del archivo .xml
-         //Guardar cada linea en un espacio del List<String>
+
         int tamano = ProductosLeidos.size();     //Obtener el largo del List<String>
 
         
@@ -44,7 +42,7 @@ public class GestionadorProducto {
             for (int i = 0; i < tamano; i++){
                ProductoLeido = ProductosLeidos.get(i);
                String[] DataProducto = ProductoLeido.split(";");
-               Producto ObjDato = new Producto(DataProducto[1] ,DataProducto[0],Float.parseFloat(DataProducto[2]),Integer.parseInt(DataProducto[3]));
+               Producto ObjDato = new Producto(DataProducto[0] ,DataProducto[1],Float.parseFloat(DataProducto[2]),Integer.parseInt(DataProducto[3]));
                this.unProducto[numDato]=ObjDato;
                numDato = numDato+1;        
 
