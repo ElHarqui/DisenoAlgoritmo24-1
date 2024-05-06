@@ -2,15 +2,12 @@
 package charquitec.Codigo;
 
 public class GestionadorVendedor {
-    int MAX = 10; 
+    final int MAX = 10; 
     int numDato=0;
     public  Vendedor [] unVendedor = new Vendedor[MAX];
     
     public void registroVendedor(String nombre,String apellido, String codigo){
-        if(numDato>=MAX){
-
-        }
-        else{
+        if(numDato < MAX){
             Vendedor ObjDato = new Vendedor(nombre  ,apellido,codigo);
             this.unVendedor[numDato]=ObjDato;
             numDato = numDato+1;

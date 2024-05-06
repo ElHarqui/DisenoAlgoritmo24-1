@@ -2,7 +2,7 @@
 package charquitec.Codigo;
 
 
-public class Persona {
+public abstract class Persona {
     public String nombre;
     public String apellido;
     public String codigo;
@@ -14,19 +14,32 @@ public class Persona {
     }
 
     public String getNombre() {
-        return nombre;
+        return this.nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-
-    public String getCodigo() {
-        return codigo;
+    public String getApellido(){
+        return this.apellido;
     }
-
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
+    public String getCodigo() {
+        return this.codigo;
+    }   
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
+
+    @Override
+    public abstract String toString();
+            
+    public String toStringXML() {
+        String sep = ";";
+        String StringXML = getCodigo()+sep+getNombre()+sep+getApellido();
+        return StringXML;
+    }
+    
     
 }

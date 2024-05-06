@@ -9,25 +9,28 @@ import java.util.ArrayList;
 
 
 public class GestionadorAdministrador {
-    private String usuario="wonder";
-    private String contrasena="123";
-    ArrayList<Vendedor>arregloVendedor=new ArrayList<>();
-    ArrayList<Producto>arregloProducto=new ArrayList<>();
+    private final String usuario = "wonder";
+    private final String contrasena = "123";
+    ArrayList<Vendedor>arregloVendedor = new ArrayList<>();
+    ArrayList<Producto>arregloProducto = new ArrayList<>();
     public GestionadorAdministrador() {
        
     }
     public boolean VerificarUsuario(String usu, String contra){
-        if(usuario.equals(usu)){
-            if(contra.equals(contra)){
-                return true;                
+        boolean vertificar = false;
+        if(this.usuario.equals(usu)){
+            if(this.contrasena.equals(contra)){
+                vertificar = true;                
             }
         }
-        return false;
+        return vertificar;
     }
     public void RegistrarVendedor(Vendedor unvendedor){
         arregloVendedor.add(unvendedor);
+        
     }
     public void RegistrarProducto(Producto unproducto){
         arregloProducto.add(unproducto);
+        
     }
 }

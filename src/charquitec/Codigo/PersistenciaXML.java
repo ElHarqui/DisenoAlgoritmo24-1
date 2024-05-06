@@ -13,19 +13,11 @@ public class PersistenciaXML {
 
     private File file; // Referencia al archivo XML
 
-    /**
-     * Constructor de la clase XMLFileManager.
-     * @param filename Nombre del archivo XML a manejar.
-     */
-    public XMLFileManager(String filename) {
+    public PersistenciaXML(String filename) {
         this.file = new File(filename); // Inicializar el archivo con el nombre proporcionado
     }
 
-    /**
-     * Lee el contenido del archivo XML y lo devuelve como una lista de cadenas de texto.
-     * @return Lista de cadenas de texto representando las líneas del archivo XML.
-     */
-    public List<String> readXMLFile() {
+    public List<String> LeerArchivoXML() {
         List<String> lines = new ArrayList<>(); // Crear una lista para almacenar las líneas del archivo
         try (BufferedReader br = new BufferedReader(new FileReader(file))) { // Abrir el archivo para lectura
             String line;
@@ -38,12 +30,8 @@ public class PersistenciaXML {
         return lines; // Devolver la lista de líneas leídas del archivo
     }
 
-    /**
-     * Escribe una línea de texto en el archivo XML.
-     * @param line Línea de texto a escribir en el archivo.
-     */
-    public void writeLineToXML(String line) {
-        try (FileWriter writer = new FileWriter(file, true)) { // Abrir el archivo para escritura (modo de anexión)
+    public void EscribirLineaXML(String line) {
+        try (FileWriter writer = new FileWriter(file, file.exists())) { // Abrir el archivo para escritura (modo de anexión si existe)
             writer.write(line + "\n"); // Escribir la línea de texto seguida de un salto de línea
         } catch (IOException e) { // Manejar excepciones de E/S
             e.printStackTrace(); // Imprimir la traza de la excepción
@@ -53,19 +41,31 @@ public class PersistenciaXML {
     /**
      * Método principal para probar la funcionalidad de la clase.
      * @param args Argumentos de línea de comandos (no utilizados en este ejemplo).
-     */
+     
     public static void main(String[] args) {
-        XMLFileManager manager = new XMLFileManager("example.xml"); // Crear un objeto XMLFileManager
-
+        PersistenciaXML ArchivoDATA = new PersistenciaXML("charquitec\\Data\\example.xml"); // Crear un PersistenciaXML/ example.xml cambiar por la ruta deseada
+        
+        
+        // Si el archivo existe, leer su contenido existente
+        if (ArchivoDATA.file.exists()) {
+            List<String> existingLines = ArchivoDATA.LeerArchivoXML();
+            for (String line : existingLines) {
+                System.out.println("Contenido existente: " + line);
+            }
+        } else {
+            System.out.println("El archivo no existe. Se creará uno nuevo.");
+        }
+        
         // Escribir algunas líneas en el archivo XML
-        manager.writeLineToXML("<tag>Primera línea</tag>");
-        manager.writeLineToXML("<tag>Segunda línea</tag>");
-        manager.writeLineToXML("<tag>Tercera línea</tag>");
+        ArchivoDATA.EscribirLineaXML("<tag>Primera línea</tag>");
+        ArchivoDATA.EscribirLineaXML("<tag>Segunda línea</tag>");
+        ArchivoDATA.EscribirLineaXML("<tag>Tercera línea</tag>");
 
         // Leer y mostrar el contenido del archivo XML
-        List<String> lines = manager.readXMLFile();
+        List<String> lines = ArchivoDATA.LeerArchivoXML();
         for (String line : lines) {
             System.out.println(line); // Imprimir cada línea leída del archivo
         }
     }
+    */
 }
