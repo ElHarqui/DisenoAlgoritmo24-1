@@ -18,7 +18,7 @@ public class GestionadorProductoCarrito {
     public int cantidadProductos(){   
         return numDato;
     }
-    public void eliminarProducto(String codigo){
+    public void eliminarProductoCarrito(String codigo){
         for(int i = 0; i < numDato; i++) {
             if (unProductoCarrito[i].getID().equals(codigo)) {
                 // Mover los elementos restantes una posición hacia atrás
