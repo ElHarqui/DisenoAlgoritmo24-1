@@ -57,7 +57,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         
         int tope = GesProduct.getnumDato();
         for(int i = 0 ; i< tope; i++){
-            Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getCantidad(),GesProduct.getProducto(i).getPrecio()};
+            Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getPrecio(),GesProduct.getProducto(i).getCantidad()};
             modeloReplica.addRow(fila);
         }
         /*
