@@ -40,4 +40,43 @@ public class GestionadorVendedor extends GestionadorPersona {
             System.out.println("Limite de vendedores sobrepasado");
         }
     }
+    //comentario ESTO DEBERIAS HACERLO CON UN GETTER
+    public int cantidadVendedor(){   
+        return numDato;
+    }
+    public void eliminarVendedor(String codigo){
+        for(int i = 0; i < numDato; i++) {
+            if (unPersona[i].getCodigo().equals(codigo)) {
+                // Mover los elementos restantes una posición hacia atrás
+                for(int j = i; j < numDato - 1; j++) {
+                    unPersona[j] = unPersona[j + 1];
+                }
+                unPersona[numDato - 1] = null; // Asignar null al último elemento para evitar duplicados
+                numDato--;
+            }
+        }
+    }  
+    public int ObtenerCantidad(String codigo){
+        int cantidad=0;
+        for(int i=0; i< numDato - 1; i++) {
+            if(codigo.equals(unPersona[i].getCodigo())){
+                //cantidad=unPersona[i].getCantidad();
+                System.out.println("Se leyo esto");
+            }
+        }
+        return cantidad;
+    }
+    public void ActualizarCantidad(String codigo,int cantidad){
+        for(int i=0; i< numDato - 1; i++) {
+            if(codigo.equals(unPersona[i].getCodigo())){
+                //unPersona[i].setCantidad(cantidad);
+            }
+        }
+    }
+    public int getnumDato(){
+        return this.numDato;
+    }
+    public Persona getPersona(int i){
+        return this.unPersona[i];
+    }  
 }

@@ -332,8 +332,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void btn_AgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarAlCarritoActionPerformed
-        //Agregar al carrito
-        
+        //Agregar al carrito 
         try{
             //TblListaProductos.setRowSelectionAllowed(true);
             int fila = TblListaProductos.getSelectedRow();

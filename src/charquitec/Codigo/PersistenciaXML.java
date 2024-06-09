@@ -1,6 +1,7 @@
 package charquitec.Codigo;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -36,6 +37,25 @@ public class PersistenciaXML {
         } catch (IOException e) { // Manejar excepciones de E/S
             System.out.println("ERROR EN PERSISTENCIAXML");
             e.printStackTrace(); // Imprimir la traza de la excepción
+        }
+    }
+    public void EliminarProductoXML(String productoId) {
+        List<String> lines = LeerArchivoXML(); // Leer el archivo XML
+        List<String> newLines = new ArrayList<>(); // Lista para las nuevas líneas del archivo
+
+        for (String line : lines) {
+            if (!line.contains(productoId)) { // Verificar si es el producto a eliminar
+                newLines.add(line); // Agregar la línea si no es el producto a eliminar
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) { // Abrir el archivo para escritura
+            for (String newLine : newLines) {
+                bw.write(newLine);
+                bw.newLine(); // Escribir cada línea en el archivo
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); // Manejar excepciones de E/S
         }
     }
 

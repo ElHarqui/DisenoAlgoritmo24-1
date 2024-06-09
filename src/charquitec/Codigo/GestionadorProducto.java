@@ -1,14 +1,20 @@
 
 package charquitec.Codigo;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class GestionadorProducto {
-    final int MAX = 10; 
+    final int MAX = 15; 
     int numDato=0;
     public  Producto [] unProducto = new Producto[MAX];
+        String file="DataProductos.xml";
     public GestionadorProducto(){
         
     }
@@ -51,6 +57,25 @@ public class GestionadorProducto {
             System.out.println("Limite de Productos sobrepasado");
         }
     }
+
+    public List<String> LeerArchivoXML() {
+        
+        List<String> lines = new ArrayList<>(); // Crear una lista para almacenar las líneas del archivo
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) { // Abrir el archivo para lectura
+            String line;
+            while ((line = br.readLine()) != null) { // Leer cada línea del archivo
+                lines.add(line); // Agregar la línea a la lista
+            }
+        } catch (IOException e) { // Manejar excepciones de E/S
+            e.printStackTrace(); // Imprimir la traza de la excepción
+        }
+        return lines; // Devolver la lista de líneas leídas del archivo
+    }
+
+    public void EliminarProductoXML(String productoId) {
+       
+    }
+
     //comentario ESTO DEBERIAS HACERLO CON UN GETTER
     public int cantidadProductos(){   
         return numDato;
