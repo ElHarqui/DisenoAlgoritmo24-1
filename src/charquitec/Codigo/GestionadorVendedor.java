@@ -20,7 +20,7 @@ public class GestionadorVendedor extends GestionadorPersona {
             System.out.println("Limite de Vendedores sobrepasado");
         }
     } 
-    
+
     @Override
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroVendedor() pero solo al iniciar el programa
         this.numDato = 0;

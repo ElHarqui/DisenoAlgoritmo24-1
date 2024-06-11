@@ -19,30 +19,27 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Vista_Vendedor extends javax.swing.JPanel {
 
-
-    JPanel contenedor;
-    Principal Principal;
-    Vista_Admi Vista_Admi=new Vista_Admi();
-    DefaultTableModel modeloReplica = new DefaultTableModel();
+    DefaultTableModel modeloProducto = new DefaultTableModel();
     DefaultTableModel modeloCarritoProductos = new DefaultTableModel();
+    GestionadorProducto GesProduct = new GestionadorProducto();
+    GestionadorProductoCarrito GesProductCarrito = new GestionadorProductoCarrito();
     public Vista_Vendedor() {
         initComponents();      
-        //TblListaProductos=new JTable(Vista_Admi.getModelo());
-        //jScrollPane2= new JScrollPane(TablaLista);
-        GestionadorProducto GesProduct = new GestionadorProducto();
         GesProduct.LeerDatosXML();
         agregarModeloTablaProducto();
-        llenarDatosEjemplo(GesProduct);
         agregarModeloCarritoProducto();
+        llenarTablaProductos(GesProduct);
+        llenarTablaProductoCarrito(GesProductCarrito);
         
+        //llenarTablaProducto2(GesProduct);
         VistaVendedor.setVisible(true);
         Vista_RegistroCliente.setVisible(false);
     }
     private void agregarModeloTablaProducto(){
-        modeloReplica.addColumn("ID");
-        modeloReplica.addColumn("Nombre");
-        modeloReplica.addColumn("Precio");
-        modeloReplica.addColumn("Cantidad"); 
+        modeloProducto.addColumn("ID");
+        modeloProducto.addColumn("Nombre");
+        modeloProducto.addColumn("Precio");
+        modeloProducto.addColumn("Cantidad"); 
         
      }
     private void agregarModeloCarritoProducto(){
@@ -52,26 +49,20 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         modeloCarritoProductos.addColumn("Cantidad"); 
         
      }
-    private void llenarDatosEjemplo(GestionadorProducto GesProduct){
+    public void actualizarTablaProductos(GestionadorProducto GesProduct) {
+        modeloProducto.setRowCount(0); // Limpiar la tabla
+        llenarTablaProductos(GesProduct); // Llenar la tabla con los datos actualizados
+    }
+    public void llenarTablaProductos(GestionadorProducto GesProduct){
         //DATOS
         
         int tope = GesProduct.getnumDato();
         for(int i = 0 ; i< tope; i++){
             Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getPrecio(),GesProduct.getProducto(i).getCantidad()};
-            modeloReplica.addRow(fila);
+            modeloProducto.addRow(fila);
         }
-        /*
-        Object[] fila1 = {"001", "Producto 1", 10, 10};
-        Object[] fila2 = {"002", "Producto 2", 10, 10};
-        Object[] fila3 = {"003", "Producto 3", 10, 10};
-        Object[] fila4 = {"004", "Producto 4", 10, 10};
-        modeloReplica.addRow(fila1);
-        modeloReplica.addRow(fila2);
-        modeloReplica.addRow(fila3);
-        modeloReplica.addRow(fila4);
-        */
     }
-     public void llenarTablaProducto(GestionadorProductoCarrito unProducto){   
+     public void llenarTablaProductoCarrito(GestionadorProductoCarrito unProducto){   
         int cantidadDatos = unProducto.cantidadProductos();       
         for( int i=0; i<cantidadDatos; i++){
             if (unProducto.unProductoCarrito[i] != null) {
@@ -220,7 +211,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             }
         });
 
-        TblListaProductos.setModel(modeloReplica);
+        TblListaProductos.setModel(modeloProducto);
         jScrollPane1.setViewportView(TblListaProductos);
 
         TblProductosCarrito.setModel(modeloCarritoProductos);
@@ -356,7 +347,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                 GestionadorProductoCarrito ges = new GestionadorProductoCarrito();
                 //ges.registroProductoCarrito(codigo, nombre, precio, cantidadProducto);
                 JOptionPane.showMessageDialog(null, "Producto añadido al carrito");
-                llenarTablaProducto(ges);
+                llenarTablaProductoCarrito(ges);
                 
                 float Monto=CalcularMonto();
                 String monto=Float.toString(Monto);

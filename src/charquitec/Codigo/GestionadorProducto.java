@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public class GestionadorProducto {
-    final int MAX = 10; 
+    final int MAX = 50; 
     int numDato=0;
     public  Producto [] unProducto = new Producto[MAX];
     public GestionadorProducto(){
@@ -20,7 +20,7 @@ public class GestionadorProducto {
             this.unProducto[numDato]=ObjDato;
             numDato = numDato+1;
         }else{
-            System.out.println("Limite de productos sobrepasado");
+            System.out.println("Limite de productos sobrepasado--");
         }
     }
     public void GuardarProducto(String StringXML,String NombreArchivo){
@@ -31,14 +31,14 @@ public class GestionadorProducto {
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
         this.numDato = 0;
         PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
-       
+        System.out.println("lee");
         List<String> ProductosLeidos = Data.LeerArchivoXML();
 
         int tamano = ProductosLeidos.size();     //Obtener el largo del List<String>
-
+        System.out.println("el tamaño es de "+tamano);
         
         String ProductoLeido ; 
-        if (tamano < this.MAX){                               //Solo si no sobrepasa el maximo  se procede a crear los objetos tipo Producto y agregarlos al Lista de objetos
+        if (tamano <+this.MAX){                               //Solo si no sobrepasa el maximo  se procede a crear los objetos tipo Producto y agregarlos al Lista de objetos
             for (int i = 0; i < tamano; i++){
                ProductoLeido = ProductosLeidos.get(i);
                String[] DataProducto = ProductoLeido.split(";");
@@ -48,8 +48,13 @@ public class GestionadorProducto {
 
            }           
         }else{
-            System.out.println("Limite de Productos sobrepasado");
+            System.out.println("Limite de ");
         }
+    }
+    public void EscribirDatosXML(String cadena){
+        this.numDato = 0;
+        PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
+        Data.EscribirLineaXML(cadena);
     }
     //comentario ESTO DEBERIAS HACERLO CON UN GETTER
     public int cantidadProductos(){   

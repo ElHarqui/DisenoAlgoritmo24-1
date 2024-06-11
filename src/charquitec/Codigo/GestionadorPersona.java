@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public abstract class GestionadorPersona {
-    final int MAX = 10; 
+    final int MAX = 50; 
     int numDato=0;
     public  Persona [] unPersona;
     
@@ -31,5 +31,8 @@ public abstract class GestionadorPersona {
                 numDato--;
             }
         }
-    }  
+    }
+    public Persona getPersona(int i){
+        return this.unPersona[i];
+    }
 }
