@@ -48,8 +48,10 @@ public class PersistenciaXML {
         for (String line : lines) {
             if (!line.contains(productoId)) { // Verificar si es el producto a eliminar
                 newLines.add(line); // Agregar la línea si no es el producto a eliminar
-
- public void EliminarPorID(String idProducto) {
+            }
+        }
+    }
+    public void EliminarPorID(String idProducto){
         List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
         List<String> nuevasLineas = new ArrayList<>(); // Crear una nueva lista para las líneas que se mantendrán
 
@@ -67,18 +69,15 @@ public class PersistenciaXML {
                 bw.write(newLine);
                 bw.newLine(); // Escribir cada línea en el archivo
             }
-        } catch (IOException e) {
+        }catch (IOException e) {
             e.printStackTrace(); // Manejar excepciones de E/S
 
-            for (String line : nuevasLineas) {
-                bw.write(line); // Escribir cada línea en el archivo
-                bw.newLine(); // Escribir un salto de línea
-            }
-        } catch (IOException e) { // Manejar excepciones de E/S
-            e.printStackTrace(); // Imprimir la traza de la excepción
-
         }
+        // Manejar excepciones de E/S
+        // Imprimir la traza de la excepción
+
     }
+}
 
     /**
      * Método principal para probar la funcionalidad de la clase.
@@ -110,7 +109,7 @@ public class PersistenciaXML {
         }
     }
     */
-}
+
 /*
     public void registroCliente(String nombre,String apellido, String codigo){
         if(numDato < MAX){
