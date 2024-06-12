@@ -34,7 +34,7 @@ public class GestionadorProductoAlmacen extends GestionadorProducto {
 
            }           
         }else{
-            System.out.println("Limite de Productos sobrepasado");
+            System.out.println("Limite de Productos sobrepasado111");
         }
     } 
 }

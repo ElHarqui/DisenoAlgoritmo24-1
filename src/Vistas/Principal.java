@@ -11,17 +11,18 @@ import charquitec.Codigo.GestionadorProductoAlmacen;
 public class Principal extends javax.swing.JFrame {
 
     Vista_Inicial Vista_Inicial = new Vista_Inicial();
-    Vista_Vendedor Vista_Vendedor = new Vista_Vendedor();
-    Vista_Admi Vista_Admi= new Vista_Admi();   
+    Vista_Vendedor VistaVendedor = new Vista_Vendedor();
+    Vista_Admi VistaAdmi= new Vista_Admi();   
     public Principal() {
         initComponents();
         this.setSize(600, 500);
         this.setLocationRelativeTo(null);
-        contenedor.add(Vista_Vendedor);
-        contenedor.add(Vista_Admi);
+        contenedor.add(VistaVendedor);
+        contenedor.add(VistaAdmi);
         contenedor.add(Vista_Inicial);
-        Vista_Vendedor.setVisible(false);
-        Vista_Admi.setVisible(false);
+        VistaAdmi.setVistaVendedor(VistaVendedor);
+        VistaVendedor.setVisible(false);
+        VistaAdmi.setVisible(false);
         Vista_Inicial.setVisible(true);
     }   
     /**
@@ -70,19 +71,19 @@ public class Principal extends javax.swing.JFrame {
 
     private void B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B1ActionPerformed
         //admin
-        Vista_Admi.setVisible(true);
-        Vista_Vendedor.setVisible(false);
+        VistaAdmi.setVisible(true);
+        VistaVendedor.setVisible(false);
         Vista_Inicial.setVisible(false);
-        contenedor.add(Vista_Admi);
+        contenedor.add(VistaAdmi);
         contenedor.validate();
     }//GEN-LAST:event_B1ActionPerformed
 
     private void B2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B2ActionPerformed
         //vendedor
-        Vista_Vendedor.setVisible(true);
+        VistaVendedor.setVisible(true);
         Vista_Inicial.setVisible(false);
-        Vista_Admi.setVisible(false);
-        contenedor.add(Vista_Vendedor);
+        VistaAdmi.setVisible(false);
+        contenedor.add(VistaVendedor);
         contenedor.validate();
     }//GEN-LAST:event_B2ActionPerformed
 

@@ -32,6 +32,7 @@ public class PersistenciaXML {
     }
 
     public void EscribirLineaXML(String line) {
+        
         try (FileWriter writer = new FileWriter(file, file.exists())) { // Abrir el archivo para escritura (modo de anexión si existe)
             writer.write(line + "\n"); // Escribir la línea de texto seguida de un salto de línea
         } catch (IOException e) { // Manejar excepciones de E/S
@@ -39,6 +40,7 @@ public class PersistenciaXML {
             e.printStackTrace(); // Imprimir la traza de la excepción
         }
     }
+
     public void EliminarProductoXML(String productoId) {
         List<String> lines = LeerArchivoXML(); // Leer el archivo XML
         List<String> newLines = new ArrayList<>(); // Lista para las nuevas líneas del archivo
@@ -46,16 +48,35 @@ public class PersistenciaXML {
         for (String line : lines) {
             if (!line.contains(productoId)) { // Verificar si es el producto a eliminar
                 newLines.add(line); // Agregar la línea si no es el producto a eliminar
+
+ public void EliminarPorID(String idProducto) {
+        List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
+        List<String> nuevasLineas = new ArrayList<>(); // Crear una nueva lista para las líneas que se mantendrán
+
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            if (!parts[0].equals(idProducto)) { // Si el primer valor (ID) no es igual al ID del producto
+                nuevasLineas.add(line); // Agregar la línea a la nueva lista
+
             }
         }
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) { // Abrir el archivo para escritura
-            for (String newLine : newLines) {
+
+            for (String newLine : nuevasLineas) {
                 bw.write(newLine);
                 bw.newLine(); // Escribir cada línea en el archivo
             }
         } catch (IOException e) {
             e.printStackTrace(); // Manejar excepciones de E/S
+
+            for (String line : nuevasLineas) {
+                bw.write(line); // Escribir cada línea en el archivo
+                bw.newLine(); // Escribir un salto de línea
+            }
+        } catch (IOException e) { // Manejar excepciones de E/S
+            e.printStackTrace(); // Imprimir la traza de la excepción
+
         }
     }
 
