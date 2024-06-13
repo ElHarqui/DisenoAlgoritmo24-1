@@ -26,6 +26,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     GestionadorVendedor GesVendedor=new GestionadorVendedor();
     GestionadorProductoCarrito GesProductCarrito = new GestionadorProductoCarrito();
     PersistenciaXML dataProducto=new PersistenciaXML("DataProductos.xml");
+    
     public Vista_Vendedor() {
         initComponents();      
         GesProduct.LeerDatosXML();
@@ -36,6 +37,8 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         VistaVendedor.setVisible(true);
         Vista_RegistroCliente.setVisible(false);
     }
+    
+
     private void agregarModeloTablaProducto(){
         modeloProducto.addColumn("ID");
         modeloProducto.addColumn("Nombre");
@@ -321,6 +324,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         Vista_RegistroCliente.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    
     private void btn_AgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarAlCarritoActionPerformed
         //Agregar al carrito
     try {

@@ -77,10 +77,6 @@ public class GestionadorProducto {
         return lines; // Devolver la lista de líneas leídas del archivo
     }
 
-    public void EliminarProductoXML(String productoId) {
-       
-    }
-
 
     public void EscribirDatosXML(String cadena){
         this.numDato = 0;
