@@ -77,6 +77,29 @@ public class PersistenciaXML {
         // Imprimir la traza de la excepción
 
     }
+     public void ActualizarPorID(String idProducto,String nombre,String precio,String cantidad) {
+        List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
+        List<String> nuevasLineas = new ArrayList<>(); // Crear una nueva lista para las líneas que se mantendrán
+
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            if (!parts[0].equals(idProducto)) { // Si el primer valor (ID) no es igual al ID del producto
+                nuevasLineas.add(line); // Agregar la línea a la nueva lista
+            }
+            else{
+                nuevasLineas.add(idProducto+";"+nombre+";"+precio+";"+cantidad);
+            }
+        }
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) { // Abrir el archivo para escritura
+            for (String line : nuevasLineas) {
+                bw.write(line); // Escribir cada línea en el archivo
+                bw.newLine(); // Escribir un salto de línea
+            }
+        } catch (IOException e) { // Manejar excepciones de E/S
+            e.printStackTrace(); // Imprimir la traza de la excepción
+        }
+    }
 }
 
     /**
