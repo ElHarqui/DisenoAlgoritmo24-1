@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/Vistas/DataProductos.xml</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/GestionadorProducto.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/PersistenciaXML.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/GestionadorPersona.java</file>
+            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Data/DataVentas.xml</file>
+            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/Vistas/Principal.java</file>
             <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/GestionadorProductoCarrito.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/GestionadorProductoAlmacen.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/GestionadorVendedor.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Codigo/Producto.java</file>
             <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/Vistas/Vista_Admi.java</file>
-            <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/charquitec/Data/DataProductos.xml</file>
             <file>file:/C:/Users/CARLOS/Documents/Downloads/cortez/ProyectoGithubDestop/DisenoAlgoritmo24-1/src/Vistas/Vista_Vendedor.java</file>
         </group>
     </open-files>

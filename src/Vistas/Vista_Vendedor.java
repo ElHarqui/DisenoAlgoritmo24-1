@@ -7,6 +7,7 @@ import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorProductoCarrito;
 import charquitec.Codigo.GestionadorVendedor;
+import charquitec.Codigo.PersistenciaXML;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -22,16 +23,16 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     DefaultTableModel modeloProducto = new DefaultTableModel();
     DefaultTableModel modeloCarritoProductos = new DefaultTableModel();
     GestionadorProducto GesProduct = new GestionadorProducto();
+    GestionadorVendedor GesVendedor=new GestionadorVendedor();
     GestionadorProductoCarrito GesProductCarrito = new GestionadorProductoCarrito();
+    PersistenciaXML dataProducto=new PersistenciaXML("DataProductos.xml");
     public Vista_Vendedor() {
         initComponents();      
         GesProduct.LeerDatosXML();
         agregarModeloTablaProducto();
         agregarModeloCarritoProducto();
         llenarTablaProductos(GesProduct);
-        llenarTablaProductoCarrito(GesProductCarrito);
         
-        //llenarTablaProducto2(GesProduct);
         VistaVendedor.setVisible(true);
         Vista_RegistroCliente.setVisible(false);
     }
@@ -62,19 +63,12 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             modeloProducto.addRow(fila);
         }
     }
-     public void llenarTablaProductoCarrito(GestionadorProductoCarrito unProducto){   
-        int cantidadDatos = unProducto.cantidadProductos();       
-        for( int i=0; i<cantidadDatos; i++){
-            if (unProducto.unProductoCarrito[i] != null) {
-            String nombre = unProducto.unProductoCarrito[i].getNombre();
-            String ID = unProducto.unProductoCarrito[i].getID();
-            
-            String precio = String.valueOf(unProducto.unProductoCarrito[i].getPrecio());
-            String cantidad = String.valueOf(unProducto.unProductoCarrito[i].getCantidad());
-            String [] listaProductos = {ID,nombre,precio,cantidad};
-            modeloCarritoProductos.addRow(listaProductos);
-        }        
-        }
+
+    public void AgregarProductoCarrito(GestionadorProductoCarrito GesProduct){
+
+        int i = GesProduct.getnumDato();
+        Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getPrecio(),GesProduct.getProducto(i).getCantidad()};
+        modeloCarritoProductos.addRow(fila);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -226,6 +220,11 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         jLabel8.setText("Digite la cantidad del producto");
 
         btn_Finalizar.setText("Finalizar");
+        btn_Finalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_FinalizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout VistaVendedorLayout = new javax.swing.GroupLayout(VistaVendedor);
         VistaVendedor.setLayout(VistaVendedorLayout);
@@ -324,54 +323,68 @@ public class Vista_Vendedor extends javax.swing.JPanel {
 
     private void btn_AgregarAlCarritoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarAlCarritoActionPerformed
         //Agregar al carrito
-        
-        try{
-            //TblListaProductos.setRowSelectionAllowed(true);
-            int fila = TblListaProductos.getSelectedRow();
-            System.out.println(TblListaProductos.getSelectedRow());
-            if(fila==-1){
-                JOptionPane.showMessageDialog(null, "seleecione una fila ");
-                
+    try {
+        // Verificar si se ha seleccionado una fila
+        int fila = TblListaProductos.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+            System.out.println("Número de fila: " + fila);
+
+            // Obtener los valores de la fila seleccionada
+            String codigo = TblListaProductos.getValueAt(fila, 0).toString();
+            String nombre = TblListaProductos.getValueAt(fila, 1).toString();
+            String Precio = TblListaProductos.getValueAt(fila, 2).toString();
+            String CantidadProducto = TCantidadProducto.getText();
+            float precio = Float.parseFloat(Precio);
+
+            // Verificar si se ha ingresado una cantidad
+            if (CantidadProducto.equals("")) {
+                JOptionPane.showMessageDialog(null, "Digite una cantidad");
+            } else {
+                int cantidadProducto = Integer.parseInt(CantidadProducto);
+                int cantidadDisponible = GesProduct.ObtenerCantidad(codigo);
+
+                // Verificar si la cantidad solicitada está disponible
+                if (cantidadDisponible >= cantidadProducto) {
+                    int cantidadResultante = cantidadDisponible - cantidadProducto;
+                    String cantidad = String.valueOf(cantidadResultante);
+
+                    // Actualizando el archivo
+                    dataProducto.ActualizarPorID(codigo, nombre, Precio, cantidad);
+
+                    // Pasando los archivos a una lista
+                    GesProduct.LeerDatosXML();
+
+                    // Actualizando tabla de productos almacen
+                    actualizarTablaProductos(GesProduct);
+
+                    // Agregando el producto al carrito
+                    GesProductCarrito.AgregarAlCarrito(codigo, nombre, precio, cantidadProducto);
+
+                    // Llenando la tabla con el carrito
+                    AgregarProductoCarrito(GesProductCarrito);
+
+                    // Mostrar mensaje de éxito
+                    JOptionPane.showMessageDialog(null, "Producto añadido al carrito");
+
+                    // Calcular y mostrar el monto total
+                    float monto = CalcularMonto();
+                    String montoStr = Float.toString(monto);
+                    LabelMonto.setText(montoStr);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cantidad no disponible");
+                }
             }
-            else{
-                String codigo = TblListaProductos.getValueAt(fila, 0).toString();
-                String nombre = TblListaProductos.getValueAt(fila, 1).toString();
-                String Precio = TblListaProductos.getValueAt(fila, 2).toString();
-                String CantidadProducto=TCantidadProducto.getText();
-                
-                //String Cantidad = TblListaProductos.getValueAt(fila, 3).toString();
-                float precio = Float.parseFloat(Precio);
-                int cantidadProducto = Integer.parseInt(CantidadProducto);   
-                RestarCantidad(TblListaProductos.getSelectedRow(),3,codigo,cantidadProducto);    
-                        
-                GestionadorProductoCarrito ges = new GestionadorProductoCarrito();
-                //ges.registroProductoCarrito(codigo, nombre, precio, cantidadProducto);
-                JOptionPane.showMessageDialog(null, "Producto añadido al carrito");
-                llenarTablaProductoCarrito(ges);
-                
-                float Monto=CalcularMonto();
-                String monto=Float.toString(Monto);
-                LabelMonto.setText(monto);
-            }
-        }catch(Exception e){
-            System.out.println(e);
+            fila = TblListaProductos.getSelectedRow();
         }
-    }//GEN-LAST:event_btn_AgregarAlCarritoActionPerformed
-    public void RestarCantidad(int fila,int columna,String codigo,int cantidadCarrito){
-        int CantidadRestanteStock=0;
-        int CantidadActualStock=0;
-        GestionadorProductoAlmacen stock=new GestionadorProductoAlmacen();
-        CantidadActualStock =stock.ObtenerCantidad(codigo);
-        System.out.println("catnidad:"+CantidadActualStock);
-        CantidadRestanteStock=CantidadActualStock-cantidadCarrito;
-        
-        GestionadorProductoAlmacen prod=new GestionadorProductoAlmacen();
-        prod.ActualizarCantidad(codigo, CantidadRestanteStock);
-        
-        TblListaProductos.setValueAt(CantidadRestanteStock, fila, columna);
-        ((DefaultTableModel) TblListaProductos.getModel()).fireTableCellUpdated(fila, columna);
+    } catch (Exception e) {
+        e.printStackTrace();
+        System.out.println(e);
     }
-    public float CalcularMonto(){
+
+    }//GEN-LAST:event_btn_AgregarAlCarritoActionPerformed
+     public float CalcularMonto(){
         float monto=0;
         int Cantidadfila = TblProductosCarrito.getRowCount();
         for (int i=0;i<Cantidadfila;i++){
@@ -380,6 +393,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             float precio = Float.parseFloat(Precio);
             float cantidad = Float.parseFloat(Cantidad);
             monto=monto+precio*cantidad;
+            System.out.println(monto);
         }
         return monto;
     }
@@ -403,8 +417,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             }else{
                 String codigo = TblProductosCarrito.getValueAt(fila, 0).toString();
                 modeloCarritoProductos.removeRow(TblProductosCarrito.getSelectedRow());
-                GestionadorProductoCarrito ges = new GestionadorProductoCarrito();
-                //ges.eliminarProductoCarrito(codigo);
                 JOptionPane.showMessageDialog(null,"Producto eliminado con exito");
                 float Monto=CalcularMonto();
                 String monto=Float.toString(Monto);
@@ -418,6 +430,10 @@ public class Vista_Vendedor extends javax.swing.JPanel {
     private void TNombreClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TNombreClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TNombreClienteActionPerformed
+
+    private void btn_FinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_FinalizarActionPerformed
+        //finaliza compra
+    }//GEN-LAST:event_btn_FinalizarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelIDCliente;

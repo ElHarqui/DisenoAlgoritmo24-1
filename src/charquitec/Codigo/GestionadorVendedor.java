@@ -40,4 +40,7 @@ public class GestionadorVendedor extends GestionadorPersona {
             System.out.println("Limite de vendedores sobrepasado");
         }
     }
+    public void Ventas(Vendedor unvendedor,List<Cliente> uncliente,float monto){
+        
+    }
 }
