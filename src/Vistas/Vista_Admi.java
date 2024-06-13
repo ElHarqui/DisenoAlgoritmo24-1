@@ -9,6 +9,7 @@ import charquitec.Codigo.GestionadorAdministrador;
 import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorVendedor;
+import charquitec.Codigo.PersistenciaXML;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -22,7 +23,9 @@ public class Vista_Admi extends javax.swing.JPanel {
     DefaultTableModel modeloProducto= new DefaultTableModel();
     GestionadorProducto GesProduct = new GestionadorProducto();
     GestionadorVendedor GesVendedor = new GestionadorVendedor();  
-
+    GestionadorProductoAlmacen  ges = new GestionadorProductoAlmacen();
+    private Vista_Vendedor vistaVendedor;
+    PersistenciaXML data=new PersistenciaXML("DataProductos.xml");
     public Vista_Admi() {
         initComponents();
         Login.setVisible(true);
@@ -36,7 +39,9 @@ public class Vista_Admi extends javax.swing.JPanel {
         llenarDatosProducto(GesProduct);   
         llenarDatosEmpleado(GesVendedor);
     }
-
+    public void setVistaVendedor(Vista_Vendedor vistaVendedor) {
+        this.vistaVendedor = vistaVendedor;
+    }
     private void agregarModeloTablaProducto(){
         modeloProducto.addColumn("ID");
         modeloProducto.addColumn("Nombre");
@@ -79,6 +84,7 @@ public class Vista_Admi extends javax.swing.JPanel {
             modeloProducto.addRow(listaProductos);
         }        
         }
+
     }
      
      public void llenarTablaVendedor(GestionadorVendedor unPersona){   
@@ -169,7 +175,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LoginLayout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 255, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 471, Short.MAX_VALUE)
                         .addComponent(jButton4)
                         .addGap(61, 61, 61))
                     .addGroup(LoginLayout.createSequentialGroup()
@@ -198,7 +204,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton4)
                     .addComponent(jLabel6))
-                .addContainerGap(167, Short.MAX_VALUE))
+                .addContainerGap(203, Short.MAX_VALUE))
         );
 
         add(Login, "card2");
@@ -276,7 +282,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 6, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TablasLayout.createSequentialGroup()
                 .addGap(86, 86, 86)
@@ -349,7 +355,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                             .addComponent(TCodigoVendedor))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Registrar_VendeLayout.createSequentialGroup()
-                .addContainerGap(473, Short.MAX_VALUE)
+                .addContainerGap(479, Short.MAX_VALUE)
                 .addComponent(btn_RegistrarVendedor)
                 .addGap(96, 96, 96))
         );
@@ -410,7 +416,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addGap(69, 69, 69)
                 .addGroup(Registrar_ProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(Registrar_ProdLayout.createSequentialGroup()
-                        .addGap(0, 251, Short.MAX_VALUE)
+                        .addGap(0, 257, Short.MAX_VALUE)
                         .addComponent(jLabel5)
                         .addGap(278, 278, 278))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, Registrar_ProdLayout.createSequentialGroup()
@@ -428,7 +434,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                             .addComponent(nomProducto)
                             .addComponent(codProducto)
                             .addComponent(precioProducto))
-                        .addContainerGap(361, Short.MAX_VALUE))))
+                        .addContainerGap(367, Short.MAX_VALUE))))
             .addGroup(Registrar_ProdLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_RegistrarProducto)
@@ -563,10 +569,10 @@ public class Vista_Admi extends javax.swing.JPanel {
         String ID = codProducto.getText();
         float precio = Float.parseFloat(precioProducto.getText());
         int cantidad = Integer.parseInt(cantProducto.getText());
-        GestionadorProductoAlmacen  ges = new GestionadorProductoAlmacen();
-        ges.registroProducto(ID, nombre, precio, cantidad);
-
+        
+        ges.registroProducto(ID, nombre, precio, cantidad);  
         JOptionPane.showMessageDialog(null, "Producto registrado");
+        ges.LeerDatosXML();
         llenarTablaProducto(ges);
         
         nomProducto.setText("");
@@ -591,7 +597,10 @@ public class Vista_Admi extends javax.swing.JPanel {
                     modeloProducto.removeRow(tblProductos.getSelectedRow());
                     GestionadorProductoAlmacen ges = new GestionadorProductoAlmacen();
                 ges.eliminarProducto(codigo);
-                GesProduct.EliminarProductoXML(codigo);
+                data.EliminarPorID(codigo);
+                GesProduct.LeerDatosXML();
+                vistaVendedor.actualizarTablaProductos(GesProduct);
+                
                 JOptionPane.showMessageDialog(null,"producto eliminado con exito");
             }
         }catch(Exception e){
