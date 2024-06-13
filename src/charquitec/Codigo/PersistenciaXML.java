@@ -77,7 +77,7 @@ public class PersistenciaXML {
         // Imprimir la traza de la excepción
 
     }
-  public void ActualizarPorID(String idProducto,String nombre,String precio,String cantidad) {
+     public void ActualizarPorID(String idProducto,String nombre,String precio,String cantidad) {
         List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
         List<String> nuevasLineas = new ArrayList<>(); // Crear una nueva lista para las líneas que se mantendrán
 
@@ -100,6 +100,7 @@ public class PersistenciaXML {
             e.printStackTrace(); // Imprimir la traza de la excepción
         }
     }
+}
 
     /**
      * Método principal para probar la funcionalidad de la clase.
