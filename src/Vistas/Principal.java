@@ -5,7 +5,6 @@
  */
 package Vistas;
 
-import charquitec.Codigo.GestionadorProductoAlmacen;
 
 
 public class Principal extends javax.swing.JFrame {
@@ -15,7 +14,7 @@ public class Principal extends javax.swing.JFrame {
     Vista_Admi VistaAdmi= new Vista_Admi();   
     public Principal() {
         initComponents();
-        this.setSize(600, 500);
+        this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
         contenedor.add(VistaVendedor);
         contenedor.add(VistaAdmi);

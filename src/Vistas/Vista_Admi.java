@@ -7,7 +7,6 @@ package Vistas;
 
 import charquitec.Codigo.GestionadorAdministrador;
 import charquitec.Codigo.GestionadorProducto;
-import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorVendedor;
 import charquitec.Codigo.PersistenciaXML;
 import javax.swing.JOptionPane;
@@ -23,7 +22,6 @@ public class Vista_Admi extends javax.swing.JPanel {
     DefaultTableModel modeloProducto= new DefaultTableModel();
     GestionadorProducto GesProduct = new GestionadorProducto();
     GestionadorVendedor GesVendedor = new GestionadorVendedor();  
-    GestionadorProductoAlmacen  ges = new GestionadorProductoAlmacen();
     private Vista_Vendedor vistaVendedor;
     PersistenciaXML data=new PersistenciaXML("DataProductos.xml");
     public Vista_Admi() {
@@ -53,6 +51,10 @@ public class Vista_Admi extends javax.swing.JPanel {
         modeloEmpleado.addColumn("Nombre");
         modeloEmpleado.addColumn("Apellido");         
      }
+    public void actualizarTablaProductos(GestionadorProducto GesProduct) {
+        modeloProducto.setRowCount(0); // Limpiar la tabla
+        llenarDatosProducto(GesProduct); // Llenar la tabla con los datos actualizados
+    }
     private void llenarDatosProducto(GestionadorProducto GesProduct){
         //DATOS
         
@@ -71,6 +73,7 @@ public class Vista_Admi extends javax.swing.JPanel {
             modeloEmpleado.addRow(fila);
         }
     }
+    /*
      public void llenarTablaProducto(GestionadorProductoAlmacen unProducto){   
         int cantidadDatos = unProducto.cantidadProductos();       
         for( int i=0; i<cantidadDatos; i++){
@@ -86,6 +89,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         }
 
     }
+*/
      
      public void llenarTablaVendedor(GestionadorVendedor unPersona){   
         int cantidadDatos = unPersona.cantidadPersona();       
@@ -282,7 +286,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TablasLayout.createSequentialGroup()
                 .addGap(86, 86, 86)
@@ -570,11 +574,11 @@ public class Vista_Admi extends javax.swing.JPanel {
         float precio = Float.parseFloat(precioProducto.getText());
         int cantidad = Integer.parseInt(cantProducto.getText());
         
-        ges.registroProducto(ID, nombre, precio, cantidad);  
+        GesProduct.registroProducto(nombre, ID, precio, cantidad);
         JOptionPane.showMessageDialog(null, "Producto registrado");
-        ges.LeerDatosXML();
-        llenarTablaProducto(ges);
-        
+        GesProduct.LeerDatosXML();
+        actualizarTablaProductos(GesProduct);
+        vistaVendedor.actualizarTablaProductos(GesProduct);
         nomProducto.setText("");
         codProducto.setText("");
         precioProducto.setText("");
@@ -593,10 +597,9 @@ public class Vista_Admi extends javax.swing.JPanel {
             }else{
             String codigo = tblProductos.getValueAt(fila, 0).toString();
             
-                   System.out.println(codigo);
-                    modeloProducto.removeRow(tblProductos.getSelectedRow());
-                    GestionadorProductoAlmacen ges = new GestionadorProductoAlmacen();
-                ges.eliminarProducto(codigo);
+                System.out.println(codigo);
+                modeloProducto.removeRow(tblProductos.getSelectedRow());
+                GesProduct.eliminarProducto(codigo);
                 data.EliminarPorID(codigo);
                 GesProduct.LeerDatosXML();
                 vistaVendedor.actualizarTablaProductos(GesProduct);
