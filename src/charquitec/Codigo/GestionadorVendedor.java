@@ -8,19 +8,32 @@ public class GestionadorVendedor extends GestionadorPersona {
     public GestionadorVendedor(){
         unPersona = new Vendedor[MAX];
     }
-    
+    PersistenciaXML dataVendedor=new PersistenciaXML("DataVendedores.xml");
     @Override
     public void Registrar(String nombre,String apellido, String codigo){
         if(numDato < MAX){
             Vendedor ObjDato = new Vendedor(nombre ,apellido,codigo);
-            GuardarDatoXML(ObjDato.toStringXML(),"DataVendedores");
+            dataVendedor.EscribirLineaXML(ObjDato.toStringXML());
             this.unPersona[numDato]= ObjDato;
             numDato = numDato+1;
         }else{
             System.out.println("Limite de Vendedores sobrepasado");
         }
     } 
-
+    @Override
+    public void Eliminar(String codigo){
+        for(int i = 0; i < numDato; i++) {
+            if (unPersona[i].getCodigo().equals(codigo)) {
+                // Mover los elementos restantes una posición hacia atrás
+                for(int j = i; j < numDato - 1; j++) {
+                    unPersona[j] = unPersona[j + 1];
+                }
+                unPersona[numDato - 1] = null; // Asignar null al último elemento para evitar duplicados
+                numDato--;
+            }
+        }
+        dataVendedor.EliminarPorID(codigo);
+    }  
     @Override
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroVendedor() pero solo al iniciar el programa
         this.numDato = 0;
@@ -44,18 +57,7 @@ public class GestionadorVendedor extends GestionadorPersona {
     public int cantidadVendedor(){   
         return numDato;
     }
-    public void eliminarVendedor(String codigo){
-        for(int i = 0; i < numDato; i++) {
-            if (unPersona[i].getCodigo().equals(codigo)) {
-                // Mover los elementos restantes una posición hacia atrás
-                for(int j = i; j < numDato - 1; j++) {
-                    unPersona[j] = unPersona[j + 1];
-                }
-                unPersona[numDato - 1] = null; // Asignar null al último elemento para evitar duplicados
-                numDato--;
-            }
-        }
-    }  
+
     public int ObtenerCantidad(String codigo){
         int cantidad=0;
         for(int i=0; i< numDato - 1; i++) {
@@ -65,13 +67,6 @@ public class GestionadorVendedor extends GestionadorPersona {
             }
         }
         return cantidad;
-    }
-    public void ActualizarCantidad(String codigo,int cantidad){
-        for(int i=0; i< numDato - 1; i++) {
-            if(codigo.equals(unPersona[i].getCodigo())){
-                //unPersona[i].setCantidad(cantidad);
-            }
-        }
     }
     public int getnumDato(){
         return this.numDato;

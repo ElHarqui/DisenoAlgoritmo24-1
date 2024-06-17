@@ -4,7 +4,7 @@ package charquitec.Codigo;
 import java.util.List;
 
 public class GestionadorCliente extends GestionadorPersona {
-    
+    PersistenciaXML dataCliente=new PersistenciaXML("DataVentas.xml");
     public GestionadorCliente(){
         unPersona = new Cliente[MAX];
     }
@@ -13,14 +13,18 @@ public class GestionadorCliente extends GestionadorPersona {
     public void Registrar(String nombre,String apellido, String codigo){
         if(numDato < MAX){
             Cliente ObjDato = new Cliente(nombre ,apellido,codigo);
-            GuardarDatoXML(ObjDato.toStringXML(),"DataClientes");
+            dataCliente.EscribirLineaXML(ObjDato.toStringXML());
+            
             this.unPersona[numDato]=ObjDato;
             numDato = numDato+1;
         }else{
             System.out.println("Limite de clientes sobrepasado");
         }
     }   
-    
+    @Override
+    public void Eliminar(String codigo){
+
+    } 
     @Override
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroCliente() pero solo al iniciar el programa
         this.numDato = 0;

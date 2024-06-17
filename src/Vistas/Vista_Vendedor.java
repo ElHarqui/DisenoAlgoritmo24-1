@@ -1,16 +1,13 @@
 
 package Vistas;
 
-import charquitec.Codigo.Cliente;
+
 import charquitec.Codigo.GestionadorCliente;
 import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorProductoCarrito;
 import charquitec.Codigo.GestionadorVendedor;
 import charquitec.Codigo.PersistenciaXML;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,6 +53,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         modeloProducto.setRowCount(0); // Limpiar la tabla
         llenarTablaProductos(GesProduct); // Llenar la tabla con los datos actualizados
     }
+
     public void llenarTablaProductos(GestionadorProducto GesProduct){
         //DATOS
         
@@ -270,7 +268,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                                         .addComponent(jLabel8)
                                         .addGap(23, 23, 23)
                                         .addComponent(TCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
         VistaVendedorLayout.setVerticalGroup(
             VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -303,7 +301,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                         .addComponent(btn_EliminarDelCarrito)
                         .addComponent(btn_Finalizar))
                     .addComponent(btn_AgregarAlCarrito))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(376, Short.MAX_VALUE))
         );
 
         add(VistaVendedor, "card2");
@@ -333,32 +331,23 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Seleccione una fila");
         } else {
             System.out.println("Número de fila: " + fila);
-
             // Obtener los valores de la fila seleccionada
             String codigo = TblListaProductos.getValueAt(fila, 0).toString();
             String nombre = TblListaProductos.getValueAt(fila, 1).toString();
             String Precio = TblListaProductos.getValueAt(fila, 2).toString();
             String CantidadProducto = TCantidadProducto.getText();
             float precio = Float.parseFloat(Precio);
-
-            // Verificar si se ha ingresado una cantidad
             if (CantidadProducto.equals("")) {
                 JOptionPane.showMessageDialog(null, "Digite una cantidad");
             } else {
                 int cantidadProducto = Integer.parseInt(CantidadProducto);
                 int cantidadDisponible = GesProduct.ObtenerCantidad(codigo);
-
                 // Verificar si la cantidad solicitada está disponible
                 if (cantidadDisponible >= cantidadProducto) {
                     int cantidadResultante = cantidadDisponible - cantidadProducto;
                     String cantidad = String.valueOf(cantidadResultante);
-
-                    // Actualizando el archivo
                     dataProducto.ActualizarPorID(codigo, nombre, Precio, cantidad);
-
-                    // Pasando los archivos a una lista
                     GesProduct.LeerDatosXML();
-
                     // Actualizando tabla de productos almacen
                     actualizarTablaProductos(GesProduct);
 
@@ -367,7 +356,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
 
                     // Llenando la tabla con el carrito
                     AgregarProductoCarrito(GesProductCarrito);
-
                     // Mostrar mensaje de éxito
                     JOptionPane.showMessageDialog(null, "Producto añadido al carrito");
 
@@ -379,7 +367,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Cantidad no disponible");
                 }
             }
-            fila = TblListaProductos.getSelectedRow();
         }
     } catch (Exception e) {
         e.printStackTrace();
@@ -396,7 +383,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             float precio = Float.parseFloat(Precio);
             float cantidad = Float.parseFloat(Cantidad);
             monto=monto+precio*cantidad;
-            System.out.println(monto);
         }
         return monto;
     }
@@ -413,7 +399,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         try{
             
             int fila = TblProductosCarrito.getSelectedRow();
-            System.out.println(TblProductosCarrito.getSelectedRow());
             if(fila==-1){
                 JOptionPane.showMessageDialog(null, "seleecione una fila ");
                 
