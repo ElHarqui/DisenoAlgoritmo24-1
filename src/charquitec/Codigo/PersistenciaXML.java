@@ -41,16 +41,6 @@ public class PersistenciaXML {
         }
     }
 
-    public void EliminarProductoXML(String productoId) {
-        List<String> lines = LeerArchivoXML(); // Leer el archivo XML
-        List<String> newLines = new ArrayList<>(); // Lista para las nuevas líneas del archivo
-
-        for (String line : lines) {
-            if (!line.contains(productoId)) { // Verificar si es el producto a eliminar
-                newLines.add(line); // Agregar la línea si no es el producto a eliminar
-            }
-        }
-    }
     public void EliminarPorID(String idProducto){
         List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
         List<String> nuevasLineas = new ArrayList<>(); // Crear una nueva lista para las líneas que se mantendrán
@@ -73,9 +63,6 @@ public class PersistenciaXML {
             e.printStackTrace(); // Manejar excepciones de E/S
 
         }
-        // Manejar excepciones de E/S
-        // Imprimir la traza de la excepción
-
     }
      public void ActualizarPorID(String idProducto,String nombre,String precio,String cantidad) {
         List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo
