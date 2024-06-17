@@ -4,7 +4,6 @@ package Vistas;
 import charquitec.Codigo.Cliente;
 import charquitec.Codigo.GestionadorCliente;
 import charquitec.Codigo.GestionadorProducto;
-import charquitec.Codigo.GestionadorProductoAlmacen;
 import charquitec.Codigo.GestionadorProductoCarrito;
 import charquitec.Codigo.GestionadorVendedor;
 import charquitec.Codigo.PersistenciaXML;
