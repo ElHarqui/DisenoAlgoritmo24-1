@@ -243,12 +243,11 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VistaVendedorLayout.createSequentialGroup()
                 .addGroup(VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, VistaVendedorLayout.createSequentialGroup()
+                    .addGroup(VistaVendedorLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(12, 12, 12))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(VistaVendedorLayout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addGroup(VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,9 +276,10 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                                         .addComponent(btn_Finalizar))
                                     .addGroup(VistaVendedorLayout.createSequentialGroup()
                                         .addComponent(jLabel8)
-                                        .addGap(23, 23, 23)
-                                        .addComponent(TCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(TCantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(5, 5, 5)))))))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         VistaVendedorLayout.setVerticalGroup(
             VistaVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,7 +312,7 @@ public class Vista_Vendedor extends javax.swing.JPanel {
                         .addComponent(btn_EliminarDelCarrito)
                         .addComponent(btn_Finalizar))
                     .addComponent(btn_AgregarAlCarrito))
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         add(VistaVendedor, "card2");
