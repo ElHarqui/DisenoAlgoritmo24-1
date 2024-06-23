@@ -66,7 +66,8 @@ public class Vista_Vendedor extends javax.swing.JPanel {
 
     public void AgregarProductoCarrito(GestionadorProductoCarrito GesProduct){
 
-        int i = GesProduct.getnumDato();
+        int i = GesProduct.getnumDatoCarrito()-1;
+        System.out.println("el valor de i es " +i);
         Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getPrecio(),GesProduct.getProducto(i).getCantidad()};
         modeloCarritoProductos.addRow(fila);
     }
