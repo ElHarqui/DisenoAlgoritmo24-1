@@ -16,8 +16,19 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Vista_Vendedor extends javax.swing.JPanel {
 
-    DefaultTableModel modeloProducto = new DefaultTableModel();
-    DefaultTableModel modeloCarritoProductos = new DefaultTableModel();
+    DefaultTableModel modeloProducto = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas de la tabla serán de solo lectura
+        }
+    };
+    
+    DefaultTableModel modeloCarritoProductos = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas de la tabla serán de solo lectura
+        }
+    };
     GestionadorProducto GesProduct = new GestionadorProducto();
     GestionadorVendedor GesVendedor=new GestionadorVendedor();
     GestionadorProductoCarrito GesProductCarrito = new GestionadorProductoCarrito();
@@ -29,7 +40,6 @@ public class Vista_Vendedor extends javax.swing.JPanel {
         agregarModeloTablaProducto();
         agregarModeloCarritoProducto();
         llenarTablaProductos(GesProduct);
-        
         VistaVendedor.setVisible(true);
         Vista_RegistroCliente.setVisible(false);
     }
@@ -338,9 +348,11 @@ public class Vista_Vendedor extends javax.swing.JPanel {
             String Precio = TblListaProductos.getValueAt(fila, 2).toString();
             String CantidadProducto = TCantidadProducto.getText();
             float precio = Float.parseFloat(Precio);
-            if (CantidadProducto.equals("")) {
+            if (CantidadProducto.equals("") || CantidadProducto.equals("0")) {
                 JOptionPane.showMessageDialog(null, "Digite una cantidad");
-            } else {
+            } 
+
+            else {
                 int cantidadProducto = Integer.parseInt(CantidadProducto);
                 int cantidadDisponible = GesProduct.ObtenerCantidad(codigo);
                 // Verificar si la cantidad solicitada está disponible

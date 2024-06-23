@@ -17,9 +17,19 @@ import javax.swing.table.DefaultTableModel;
  * @author csosa
  */
 public class Vista_Admi extends javax.swing.JPanel {
-    DefaultTableModel modeloEmpleado = new DefaultTableModel();
+    DefaultTableModel modeloEmpleado = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas de la tabla serán de solo lectura
+        }
+    };   
+    DefaultTableModel modeloProducto= new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas de la tabla serán de solo lectura
+        }
+    };
     GestionadorAdministrador GestionadorAdministrador = new GestionadorAdministrador();
-    DefaultTableModel modeloProducto= new DefaultTableModel();
     GestionadorProducto GesProduct = new GestionadorProducto();
     GestionadorVendedor GesVendedor = new GestionadorVendedor();  
     private Vista_Vendedor vistaVendedor;
