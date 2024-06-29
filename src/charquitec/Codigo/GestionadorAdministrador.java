@@ -5,9 +5,18 @@
  */
 package charquitec.Codigo;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class GestionadorAdministrador {
     private final String usuario = "wonder";
     private final String contrasena = "123";
+    ArrayList<Vendedor>arregloVendedor = new ArrayList<>();
+    ArrayList<Producto>arregloProducto = new ArrayList<>();
     public GestionadorAdministrador() {
        
     }
@@ -21,5 +30,13 @@ public class GestionadorAdministrador {
         return vertificar;
     }
 
-
+    
+    public void RegistrarVendedor(Vendedor unvendedor){
+        arregloVendedor.add(unvendedor);
+        
+    }
+    public void RegistrarProducto(Producto unproducto){
+        arregloProducto.add(unproducto);
+        
+    }
 }
