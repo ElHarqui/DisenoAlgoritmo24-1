@@ -12,8 +12,25 @@ public class GestionadorProductoCarrito extends GestionadorProducto{
             //GuardarProducto(ObjDato.toStringXML(),"DataVentas");
             this.unProducto[numDatoCarrito]=ObjDato;
             numDatoCarrito = numDatoCarrito+1;
+            System.out.println(nombre+ID+precio+cantidad);
         }else{
             System.out.println("Limite de productos sobrepasado--");
+        
+     }       
+    }
+    public void eliminarProductoCarrito(String codigo){
+        for(int i = 0; i < numDato; i++) {
+            if (unProducto[i].getID().equals(codigo)) {
+                // Mover los elementos restantes una posición hacia atrás
+                for(int j = i; j < numDato - 1; j++) {
+                    unProducto[j] = unProducto[j + 1];
+                }
+                unProducto[numDato - 1] = null; // Asignar null al último elemento para evitar duplicados
+                numDato--;
+            }
         }
+    }
+    public int getnumDatoCarrito(){
+        return this.numDatoCarrito;
     }
 }
