@@ -1,20 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package charquitec.Codigo;
 
-/**
- *
- * @author CARLOS
- */
+
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class GestionadorInventario {
     
-    String file="DataProductos.xml";
+    String file = "DataProductos.xml";
     
     private PersistenciaXML persistencia;
 
