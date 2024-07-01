@@ -12,7 +12,6 @@ public class GestionadorProductoAlmacen extends GestionadorProducto {
         
     }
     
-    @Override
     public void GuardarProducto(String StringXML,String NombreArchivo){
        PersistenciaXML Data = new PersistenciaXML(NombreArchivo+".xml");
        Data.EscribirLineaXML(StringXML);
