@@ -1,13 +1,14 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package charquitec.Codigo;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+/**
+ *
+ * @author CARLOS
+ */
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -36,7 +37,7 @@ public class GestionadorInventario {
 
         int medio = inicio + (fin - inicio) / 2;
         String[] partesMedio = lineas.get(medio).split(";");
-
+        // division llega a cero
         if (partesMedio[0].equals(IDBuscado)) {
             productosEncontrados.add(lineas.get(medio)); // Agregar el producto encontrado
         }
@@ -62,5 +63,6 @@ public class GestionadorInventario {
         }
         return sb.toString();
     }
+    // no lo se rick
       
 }
