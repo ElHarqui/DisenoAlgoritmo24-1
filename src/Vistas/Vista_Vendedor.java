@@ -130,8 +130,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
     }
 
     public void llenarTablaProductos(GestionadorProducto GesProduct){
-        //DATOS
-        
+
         int tope = GesProduct.getnumDato();
         for(int i = 0 ; i< tope; i++){
             Object[] fila = {GesProduct.getProducto(i).getID(), GesProduct.getProducto(i).getNombre(), GesProduct.getProducto(i).getPrecio(),GesProduct.getProducto(i).getCantidad()};
@@ -140,7 +139,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
     }
     public void llenarTablaCliente(GestionadorCliente GesCliente){
             
-            int tope = GesCliente.cantidadPersona();
+        int tope = GesCliente.cantidadPersona();
         for(int i = 0 ; i< tope; i++){
             Object[] fila = {GesCliente.getPersona(i).getCodigo(), GesCliente.getPersona(i).getNombre(),GesCliente.getPersona(i).getApellido()};
             modeloCliente.addRow(fila);

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<HashTable>
+    <Entry>
+        <Key>clave3</Key>
+        <Value>valor3</Value>
+    </Entry>
+    <Entry>
+        <Key>clave2</Key>
+        <Value>valor2</Value>
+    </Entry>
+    <Entry>
+        <Key>clave1</Key>
+        <Value>valor1</Value>
+    </Entry>
+</HashTable>
