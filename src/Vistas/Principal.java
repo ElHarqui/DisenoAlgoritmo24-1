@@ -20,6 +20,7 @@ public class Principal extends javax.swing.JFrame {
         contenedor.add(VistaAdmi);
         contenedor.add(Vista_Inicial);
         VistaAdmi.setVistaVendedor(VistaVendedor);
+        VistaVendedor.setVistaAdmin(VistaAdmi);
         VistaVendedor.setVisible(false);
         VistaAdmi.setVisible(false);
         Vista_Inicial.setVisible(true);

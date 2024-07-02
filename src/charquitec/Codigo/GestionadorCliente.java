@@ -23,6 +23,7 @@ public class GestionadorCliente extends GestionadorPersona {
             return false;
         }
     }   
+    
     @Override
     public void Eliminar(String codigo){
         for(int i = 0; i < numDato; i++) {
@@ -60,5 +61,4 @@ public class GestionadorCliente extends GestionadorPersona {
     public int cantidadClientes(){
         return numDato;
     }
-
 }
