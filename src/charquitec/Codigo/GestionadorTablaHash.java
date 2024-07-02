@@ -23,12 +23,14 @@ import org.w3c.dom.NodeList;
  */
 public class GestionadorTablaHash {
     private Map<String, String> hashTable;
+    private File file;
 
     /**
      * Constructor que inicializa la tabla hash.
      */
-    public GestionadorTablaHash() {
+    public GestionadorTablaHash(String filename) {
         this.hashTable = new HashMap<>();
+        this.file = new File(".\\src\\charquitec\\Data\\"+filename);
     }
 
     /**
@@ -56,7 +58,7 @@ public class GestionadorTablaHash {
      *
      * @param filename El nombre del archivo XML.
      */
-    public void saveToXML(String filename) {
+    public void saveToXML() {
         try {
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -86,7 +88,7 @@ public class GestionadorTablaHash {
             Transformer transformer = transformerFactory.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "yes");
             DOMSource source = new DOMSource(doc);
-            StreamResult result = new StreamResult(new File(".\\src\\charquitec\\Data\\"+filename));
+            StreamResult result = new StreamResult(this.file);
 
             transformer.transform(source, result);
 
@@ -100,11 +102,11 @@ public class GestionadorTablaHash {
     /**
      * Carga la tabla hash desde un archivo XML.
      *
-     * @param filename El nombre del archivo XML.
+     * @return 
      */
-    public void loadFromXML(String filename) {
+    public Map<String, String> loadFromXML() {
         try {
-            File xmlFile = new File(".\\src\\charquitec\\Data\\"+filename);
+            File xmlFile = this.file;
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile);
@@ -129,10 +131,11 @@ public class GestionadorTablaHash {
             }
 
             System.out.println("Archivo XML cargado exitosamente.");
-
+            return this.hashTable;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
     }
 
     /**
@@ -143,6 +146,7 @@ public class GestionadorTablaHash {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
+    /*
     public static void main(String[] args) {
         GestionadorTablaHash TablaHash = new GestionadorTablaHash();
 
@@ -165,4 +169,5 @@ public class GestionadorTablaHash {
         System.out.println("Tabla hash cargada desde el archivo XML:");
         TablaHash.printHashTable();
     }
+    */
 }

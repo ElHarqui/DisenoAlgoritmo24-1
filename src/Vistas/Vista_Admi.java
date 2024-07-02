@@ -273,7 +273,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addGroup(TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                 .addGroup(TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TablasLayout.createSequentialGroup()
                         .addComponent(jButton5)
@@ -351,7 +351,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                     .addComponent(TCodigoVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(btn_RegistrarVendedor)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         contenedor.add(Registrar_Vende, "card3");
@@ -439,7 +439,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                         .addGroup(Registrar_ProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
 
         contenedor.add(Registrar_Prod, "card4");
@@ -470,7 +470,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         ReporteLayout.setVerticalGroup(
             ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ReporteLayout.createSequentialGroup()
-                .addContainerGap(89, Short.MAX_VALUE)
+                .addContainerGap(200, Short.MAX_VALUE)
                 .addGroup(ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteLayout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -621,14 +621,14 @@ public class Vista_Admi extends javax.swing.JPanel {
         LoginLayout.setVerticalGroup(
             LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LoginLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addComponent(jLabel6)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
-                        .addGap(0, 50, Short.MAX_VALUE)
+                        .addGap(0, 107, Short.MAX_VALUE)
                         .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
                                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
