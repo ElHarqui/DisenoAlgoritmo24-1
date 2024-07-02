@@ -96,5 +96,6 @@ public class GestionadorVendedor extends GestionadorPersona {
         }
         return false;
     }
+
     
 }
