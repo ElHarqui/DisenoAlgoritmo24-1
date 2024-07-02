@@ -12,6 +12,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import charquitec.Codigo.GestionadorInventario;
+import charquitec.Codigo.ListaEnlazada;
+import charquitec.Codigo.Vendedor;
 /**
  *
  * @author Usuario
@@ -42,11 +44,12 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
 
     GestionadorVenta GesVenta = new GestionadorVenta();
         DefaultTableModel modeloVentas = new DefaultTableModel();
-    
+    ListaEnlazada lista=new ListaEnlazada();
+    Vista_Admi vistaAdmin=new Vista_Admi();
     public Vista_Vendedor() {
         initComponents();      
         GesProduct.LeerDatosXML();
-        
+        GesVendedor.LeerDatosXML();
         GesCliente.LeerDatosXML();
         agregarModeloTablaProducto();
         agregarModeloCarritoProducto();
@@ -56,10 +59,12 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         
         llenarTablaCliente(GesCliente);
 
-         llenarTablaVentas(GesVenta);
-          agregarClienteComboBox();
-          VistaVendedor.setVisible(true);
+        llenarTablaVentas(GesVenta);
+        agregarClienteComboBox();
+        LoginVendedor.setVisible(true);
         Vista_RegistroCliente1.setVisible(false);
+        VistaVentas.setVisible(false);
+        VistaVendedor.setVisible(false);
     }
     
 
@@ -98,6 +103,9 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         
         
         
+    }
+    public void setVistaAdmin(Vista_Admi vistaAdmin) {
+        this.vistaAdmin = vistaAdmin;
     }
     public void llenarTablaVentas(GestionadorVenta GesVenta){
             
@@ -203,6 +211,15 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        LoginVendedor = new javax.swing.JPanel();
+        panelRound1 = new Vistas.PanelRound();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        T_usuario = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        T_contra = new javax.swing.JTextField();
+        jButton9 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new java.awt.CardLayout());
@@ -572,6 +589,13 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
 
         jButton5.setText("Generar Reporte");
 
+        jButton4.setText("Regresar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout VistaVentasLayout = new javax.swing.GroupLayout(VistaVentas);
         VistaVentas.setLayout(VistaVentasLayout);
         VistaVentasLayout.setHorizontalGroup(
@@ -583,7 +607,9 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
                         .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(VistaVentasLayout.createSequentialGroup()
                         .addGap(40, 40, 40)
-                        .addComponent(jButton5)))
+                        .addComponent(jButton5)
+                        .addGap(128, 128, 128)
+                        .addComponent(jButton4)))
                 .addContainerGap(460, Short.MAX_VALUE))
         );
         VistaVentasLayout.setVerticalGroup(
@@ -592,11 +618,93 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
                 .addGap(38, 38, 38)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
-                .addComponent(jButton5)
+                .addGroup(VistaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton5)
+                    .addComponent(jButton4))
                 .addContainerGap(251, Short.MAX_VALUE))
         );
 
         add(VistaVentas, "card5");
+
+        LoginVendedor.setBackground(new java.awt.Color(102, 153, 255));
+
+        jLabel4.setText("Iniciar Sesion");
+
+        jLabel5.setText("Usuario");
+
+        T_usuario.setText(" ");
+        T_usuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                T_usuarioActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Contraseña");
+
+        jButton9.setText("Iniciar Sesion");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
+        panelRound1.setLayout(panelRound1Layout);
+        panelRound1Layout.setHorizontalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(73, 73, 73)
+                        .addComponent(jLabel4))
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel6)
+                            .addComponent(T_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                            .addComponent(T_contra)))
+                    .addGroup(panelRound1Layout.createSequentialGroup()
+                        .addGap(109, 109, 109)
+                        .addComponent(jButton9)))
+                .addContainerGap(202, Short.MAX_VALUE))
+        );
+        panelRound1Layout.setVerticalGroup(
+            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRound1Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addComponent(jLabel4)
+                .addGap(64, 64, 64)
+                .addComponent(jLabel5)
+                .addGap(27, 27, 27)
+                .addComponent(T_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(T_contra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(40, 40, 40)
+                .addComponent(jButton9)
+                .addContainerGap(131, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout LoginVendedorLayout = new javax.swing.GroupLayout(LoginVendedor);
+        LoginVendedor.setLayout(LoginVendedorLayout);
+        LoginVendedorLayout.setHorizontalGroup(
+            LoginVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginVendedorLayout.createSequentialGroup()
+                .addContainerGap(454, Short.MAX_VALUE)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(64, 64, 64))
+        );
+        LoginVendedorLayout.setVerticalGroup(
+            LoginVendedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LoginVendedorLayout.createSequentialGroup()
+                .addGap(47, 47, 47)
+                .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
+
+        add(LoginVendedor, "card5");
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -723,8 +831,12 @@ try{
             GesVenta.registroVenta(cliente, ID, Nombre, Precio, Cantidad,Total);
                     JOptionPane.showMessageDialog(null, "venta realizada ");
           llenarTablaVentas(GesVenta);
-
-                   
+                String vendedor=T_contra.getText();
+                String monto=LabelMonto.getText();
+                lista.insertarFinal(vendedor, cliente, monto);
+                
+                vistaAdmin.actualizarTablaReporte(lista);
+        
             }
         }catch(Exception e){
             System.out.println("errores");
@@ -778,6 +890,8 @@ try{
         llenarTablaCliente(ges);
 
         LabelIDCliente.setText(codigo);
+        
+        
         //VistaVendedor.setVisible(true);
         // Vista_RegistroCliente.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -800,14 +914,40 @@ try{
         // TODO add your handling code here:
     }//GEN-LAST:event_comboClienteBoxActionPerformed
 
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        VistaVentas.setVisible(false);
+        VistaVendedor.setVisible(true);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void T_usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_T_usuarioActionPerformed
+        
+    }//GEN-LAST:event_T_usuarioActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+
+        String usuario=T_usuario.getText();
+        String contra=T_contra.getText();
+        if(GesVendedor.existeVendedor(contra)){
+            LoginVendedor.setVisible(false);
+            VistaVendedor.setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Contraseña no valida");
+        }
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea A1;
     private javax.swing.JLabel LabelIDCliente;
     private javax.swing.JLabel LabelMonto;
+    private javax.swing.JPanel LoginVendedor;
     private javax.swing.JTextField TApellidoCliente;
     private javax.swing.JTextField TCantidadProducto;
     private javax.swing.JTextField TDNICliente;
     private javax.swing.JTextField TNombreCliente;
+    private javax.swing.JTextField T_contra;
+    private javax.swing.JTextField T_usuario;
     private javax.swing.JTable TblListaProductos;
     private javax.swing.JTable TblProductosCarrito;
     private javax.swing.JPanel VistaVendedor;
@@ -822,10 +962,12 @@ try{
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -834,6 +976,9 @@ try{
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
@@ -844,6 +989,7 @@ try{
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTable jTable1;
+    private Vistas.PanelRound panelRound1;
     private javax.swing.JTextField product_code;
     private javax.swing.JTable tblClientes;
     // End of variables declaration//GEN-END:variables
