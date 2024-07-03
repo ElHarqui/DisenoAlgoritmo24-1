@@ -224,7 +224,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         setBackground(new java.awt.Color(204, 255, 204));
         setLayout(new java.awt.CardLayout());
 
-        Vista_RegistroCliente1.setBackground(new java.awt.Color(204, 255, 255));
+        Vista_RegistroCliente1.setBackground(new java.awt.Color(0, 204, 255));
 
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Codigo");
@@ -248,8 +248,10 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Apellido");
 
+        jPanel2.setBackground(new java.awt.Color(0, 153, 255));
+
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 153, 255));
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jLabel13.setText("Complete la informacion de sus clientes");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -257,7 +259,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
+                .addGap(157, 157, 157)
                 .addComponent(jLabel13)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -308,7 +310,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
                 .addGroup(Vista_RegistroCliente1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Vista_RegistroCliente1Layout.createSequentialGroup()
                         .addComponent(jButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButton7))
@@ -333,7 +335,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
                     .addGroup(Vista_RegistroCliente1Layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         Vista_RegistroCliente1Layout.setVerticalGroup(
@@ -367,7 +369,7 @@ DefaultTableModel modeloCliente = new DefaultTableModel();
                     .addGroup(Vista_RegistroCliente1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton8)))
-                .addContainerGap(256, Short.MAX_VALUE))
+                .addContainerGap(253, Short.MAX_VALUE))
         );
 
         add(Vista_RegistroCliente1, "card3");

@@ -2,6 +2,7 @@
 package charquitec.Codigo;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class GestionadorProducto {
@@ -47,11 +48,12 @@ public class GestionadorProducto {
         }
         dataProducto.EliminarPorID(codigo);
     }
+    /*
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
         this.numDato = 0;
         PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
         System.out.println("lee");
-        List<String> ProductosLeidos = Data.LeerArchivoXML();
+        ProductosLeidos = Data.LeerArchivoXML();
 
         int tamano = ProductosLeidos.size();     //Obtener el largo del List<String>
         System.out.println("el tamaño es de "+tamano);
@@ -70,7 +72,7 @@ public class GestionadorProducto {
             System.out.println("Limite de ");
         }
     }
-
+*/
 
     //comentario ESTO DEBERIAS HACERLO CON UN GETTER
     public int cantidadProductos(){   
@@ -102,5 +104,32 @@ public class GestionadorProducto {
     }
     return false;
 }
+    public void LeerDatosXMLHASH(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
+        this.numDato = 0;
+        GestionadorTablaHash Data = new GestionadorTablaHash("hashTable.xml");
+        //PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
+        System.out.println("lee");
+       
+        Map<String, String>  ProductosLeidos =  Data.loadFromXML();
+       // List<String> ProductosLeidos = Data.LeerArchivoXML();
+
+        int tamano = ProductosLeidos.size();     //Obtener el largo del List<String>
+        System.out.println("el tamaño es de "+tamano);
+
+        String ProductoLeido ; 
+        if (tamano <+this.MAX){                               //Solo si no sobrepasa el maximo  se procede a crear los objetos tipo Producto y agregarlos al Lista de objetos
+            for (int i = 0; i < tamano; i++){
+               ProductoLeido = ProductosLeidos.get(i);
+               String[] DataProducto = ProductoLeido.split(";");
+               Producto ObjDato = new Producto(DataProducto[0] ,DataProducto[1],Float.parseFloat(DataProducto[2]),Integer.parseInt(DataProducto[3]));
+               this.unProducto[numDato]=ObjDato;
+               numDato = numDato+1;        
+
+           }           
+        }else{
+            System.out.println("Limite de ");
+        }
+    }
+
     
 }
