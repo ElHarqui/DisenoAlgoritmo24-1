@@ -376,7 +376,7 @@
                                       <Component id="codProducto" alignment="0" max="32767" attributes="0"/>
                                       <Component id="precioProducto" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="685" max="32767" attributes="0"/>
+                                  <EmptySpace pref="687" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -492,7 +492,7 @@
                           <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="144" max="-2" attributes="0"/>
                           <Component id="jButton9" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="279" max="32767" attributes="0"/>
+                          <EmptySpace pref="282" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -539,7 +539,7 @@
                 </Container>
                 <Component class="javax.swing.JButton" name="jButton9">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Regresar"/>
+                    <Property name="text" type="java.lang.String" value="Ordenar"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>

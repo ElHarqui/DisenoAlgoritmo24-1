@@ -5,6 +5,7 @@
  */
 package Vistas;
 
+import charquitec.Codigo.Fila;
 import charquitec.Codigo.GestionadorAdministrador;
 import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorVendedor;
@@ -14,10 +15,13 @@ import javax.swing.table.DefaultTableModel;
 import charquitec.Codigo.GestionadorGrafo;
 import charquitec.Codigo.Grafo;
 import charquitec.Codigo.ListaEnlazada;
+import charquitec.Codigo.MergeSort;
 import charquitec.Codigo.Nodo;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
- * @author csosa
+ * @author csosaitec.Codig
  */
 public class Vista_Admi extends javax.swing.JPanel {
     DefaultTableModel modeloEmpleado = new DefaultTableModel(){
@@ -122,7 +126,29 @@ public class Vista_Admi extends javax.swing.JPanel {
             actual = actual.getSiguiente();
         }
     }
+    private void ordenarDatosReporte() {
+        // Leer los datos de la tabla en una lista de objetos Fila
+        List<Fila> filas = new ArrayList<>();
+        for (int i = 0; i < modeloReporte.getRowCount(); i++) {
+            String vendedor = (String) modeloReporte.getValueAt(i, 0);
+            String cliente = (String) modeloReporte.getValueAt(i, 1);
+            double monto = Double.parseDouble((String) modeloReporte.getValueAt(i, 2));
+            filas.add(new Fila(vendedor, cliente, monto));
+        }
 
+        // Convertir la lista a un array para ordenar
+        Fila[] arrayFilas = filas.toArray(new Fila[0]);
+        MergeSort.mergeSort(arrayFilas);
+
+        // Limpiar la tabla
+        modeloReporte.setRowCount(0);
+
+        // Añadir las filas ordenadas de nuevo a la tabla
+        for (Fila fila : arrayFilas) {
+            Object[] filaDatos = {fila.vendedor, fila.cliente, String.valueOf(fila.monto)};
+            modeloReporte.addRow(filaDatos);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -407,7 +433,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                             .addComponent(nomProducto)
                             .addComponent(codProducto)
                             .addComponent(precioProducto))
-                        .addContainerGap(685, Short.MAX_VALUE))))
+                        .addContainerGap(687, Short.MAX_VALUE))))
             .addGroup(Registrar_ProdLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_RegistrarProducto)
@@ -449,7 +475,7 @@ public class Vista_Admi extends javax.swing.JPanel {
         jTable1.setModel(modeloReporte);
         jScrollPane1.setViewportView(jTable1);
 
-        jButton9.setText("Regresar");
+        jButton9.setText("Ordenar");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -465,7 +491,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(144, 144, 144)
                 .addComponent(jButton9)
-                .addContainerGap(279, Short.MAX_VALUE))
+                .addContainerGap(282, Short.MAX_VALUE))
         );
         ReporteLayout.setVerticalGroup(
             ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -815,8 +841,9 @@ public class Vista_Admi extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        Reporte.setVisible(false);
-        Tablas.setVisible(true);
+        actualizarTablaReporte(lista);
+        ordenarDatosReporte();  
+        
     }//GEN-LAST:event_jButton9ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

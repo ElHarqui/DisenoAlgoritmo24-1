@@ -48,12 +48,12 @@ public class GestionadorProducto {
         }
         dataProducto.EliminarPorID(codigo);
     }
-    /*
+    
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroProducto() pero solo al iniciar el programa
         this.numDato = 0;
         PersistenciaXML Data = new PersistenciaXML("DataProductos.xml");
         System.out.println("lee");
-        ProductosLeidos = Data.LeerArchivoXML();
+        List<String> ProductosLeidos = Data.LeerArchivoXML();
 
         int tamano = ProductosLeidos.size();     //Obtener el largo del List<String>
         System.out.println("el tamaño es de "+tamano);
@@ -72,7 +72,7 @@ public class GestionadorProducto {
             System.out.println("Limite de ");
         }
     }
-*/
+
 
     //comentario ESTO DEBERIAS HACERLO CON UN GETTER
     public int cantidadProductos(){   
