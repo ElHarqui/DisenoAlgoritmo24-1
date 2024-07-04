@@ -40,6 +40,15 @@ public class PersistenciaXML {
             e.printStackTrace(); // Imprimir la traza de la excepción
         }
     }
+    public void EscribirLineaXMLNuevo(String line) {
+        
+        try (FileWriter writer = new FileWriter(file, file.exists())) { // Abrir el archivo para escritura (modo de anexión si existe)
+            writer.write(line + "\n"); // Escribir la línea de texto seguida de un salto de línea
+        } catch (IOException e) { // Manejar excepciones de E/S
+            System.out.println("ERROR EN PERSISTENCIAXML");
+            e.printStackTrace(); // Imprimir la traza de la excepción
+        }
+    }    
 
     public void EliminarPorID(String idProducto){
         List<String> lines = LeerArchivoXML(); // Leer todas las líneas del archivo

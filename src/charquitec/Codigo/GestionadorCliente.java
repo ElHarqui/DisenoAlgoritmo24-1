@@ -41,6 +41,7 @@ public class GestionadorCliente extends GestionadorPersona {
     @Override
     public void LeerDatosXML(){     //Lee el archivo xml y lo guarda en clases como el metodo registroCliente() pero solo al iniciar el programa
         this.numDato = 0;
+        MergeSortArray sorti = new MergeSortArray();
         PersistenciaXML Data = new PersistenciaXML("DataClientes.xml");//Nombre de la ruta del archivo .xml
         List<String> UsuariosLeidos = Data.LeerArchivoXML();  //Guardar cada linea en un espacio del List<String>
         int tamano = UsuariosLeidos.size();                   //Obtener el largo del List<String>
@@ -53,18 +54,16 @@ public class GestionadorCliente extends GestionadorPersona {
                 UsuarioLeido2[i][1] = DataUsuario[1];
                 UsuarioLeido2[i][2] = DataUsuario[2];
                 UsuarioLeido2[i][0] = DataUsuario[0];
-               
-               Cliente ObjDato = new Cliente(DataUsuario[1] ,DataUsuario[2],DataUsuario[0]);
-               this.unPersona[numDato]=ObjDato;
-               numDato = numDato+1;        
-
+                      
            }
-           MergeSortArray SortArray = new MergeSortArray();
-           SortArray.mergeSortArray(UsuarioLeido2);
+           
+            sorti.mergeSort(UsuarioLeido2);
+           
            for(int i = 0 ; i < tamano ; i++){
                 Cliente ObjDato = new Cliente(UsuarioLeido2[i][1] ,UsuarioLeido2[i][2],UsuarioLeido2[i][0]);
                 this.unPersona[numDato]=ObjDato;
                 numDato = numDato+1;   
+                dataCliente.EscribirLineaXMLNuevo(this.unPersona[i].toStringXML());
            }
            
             
