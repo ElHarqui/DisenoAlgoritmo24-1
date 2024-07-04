@@ -9,17 +9,30 @@ public class GestionadorVendedor extends GestionadorPersona {
         unPersona = new Vendedor[MAX];
     }
     PersistenciaXML dataVendedor=new PersistenciaXML("DataVendedores.xml");
-    @Override
-    public void Registrar(String nombre,String apellido, String codigo){
-        if(numDato < MAX){
-            Vendedor ObjDato = new Vendedor(nombre ,apellido,codigo);
-            dataVendedor.EscribirLineaXML(ObjDato.toStringXML());
-            this.unPersona[numDato]= ObjDato;
-            numDato = numDato+1;
-        }else{
-            System.out.println("Limite de Vendedores sobrepasado");
+    
+   
+    
+@Override
+    public boolean Registrar(String nombre, String apellido, String codigo) {
+        if (existeVendedor(codigo)) {
+            System.out.println("Ya existe un vendedor con el código: " + codigo);
+            return false; 
         }
-    } 
+
+        if (numDato < MAX) {
+            Vendedor ObjDato = new Vendedor(nombre, apellido, codigo);
+            dataVendedor.EscribirLineaXML(ObjDato.toStringXML());
+            this.unPersona[numDato] = ObjDato;
+            numDato = numDato + 1;
+            System.out.println("Vendedor registrado con éxito: " + codigo);
+            return true; // Registro exitoso
+        } else {
+            System.out.println("Límite de Vendedores sobrepasado");
+            return false; // No se pudo registrar por límite alcanzado
+        }
+    }
+    
+    
     @Override
     public void Eliminar(String codigo){
         for(int i = 0; i < numDato; i++) {
@@ -74,4 +87,15 @@ public class GestionadorVendedor extends GestionadorPersona {
     public Persona getPersona(int i){
         return this.unPersona[i];
     }  
+    
+    public boolean existeVendedor(String codigo) {
+        for (int i = 0; i < numDato; i++) {
+            if (unPersona[i] != null && unPersona[i].getCodigo().equals(codigo)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
 }

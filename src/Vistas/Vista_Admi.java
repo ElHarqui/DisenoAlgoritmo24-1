@@ -5,19 +5,32 @@
  */
 package Vistas;
 
+import charquitec.Codigo.Fila;
 import charquitec.Codigo.GestionadorAdministrador;
 import charquitec.Codigo.GestionadorProducto;
 import charquitec.Codigo.GestionadorVendedor;
 import charquitec.Codigo.PersistenciaXML;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
+import charquitec.Codigo.GestionadorGrafo;
+import charquitec.Codigo.Grafo;
+import charquitec.Codigo.ListaEnlazada;
+import charquitec.Codigo.MergeSort;
+import charquitec.Codigo.Nodo;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
- * @author csosa
+ * @author csosaitec.Codig
  */
 public class Vista_Admi extends javax.swing.JPanel {
     DefaultTableModel modeloEmpleado = new DefaultTableModel(){
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false; // Todas las celdas de la tabla serán de solo lectura
+        }
+    };  
+    DefaultTableModel modeloReporte = new DefaultTableModel(){
         @Override
         public boolean isCellEditable(int row, int column) {
             return false; // Todas las celdas de la tabla serán de solo lectura
@@ -33,19 +46,26 @@ public class Vista_Admi extends javax.swing.JPanel {
     GestionadorProducto GesProduct = new GestionadorProducto();
     GestionadorVendedor GesVendedor = new GestionadorVendedor();  
     private Vista_Vendedor vistaVendedor;
+    private Vista_Admi vistaAdmi;
+    ListaEnlazada lista=new ListaEnlazada();
     PersistenciaXML data=new PersistenciaXML("DataProductos.xml");
+    private Grafo grafo;
+    private GestionadorGrafo gestionadorGrafo;
     public Vista_Admi() {
         initComponents();
         Login.setVisible(true);
         VistaAdmin.setVisible(false);
         agregarModeloTablaProducto();
         agregarModeloTablaEmpleado();
-
+        agregarModeloTablaReporte();
         GesProduct.LeerDatosXML();
         GesVendedor.LeerDatosXML();
+        lista.LeerDatosXML();
         
         llenarDatosProducto(GesProduct);   
         llenarDatosEmpleado(GesVendedor);
+        llenarDatosReporte(lista);
+        this.grafo = new Grafo();
     }
     public void setVistaVendedor(Vista_Vendedor vistaVendedor) {
         this.vistaVendedor = vistaVendedor;
@@ -61,10 +81,25 @@ public class Vista_Admi extends javax.swing.JPanel {
         modeloEmpleado.addColumn("Nombre");
         modeloEmpleado.addColumn("Apellido");         
      }
+    private void agregarModeloTablaReporte(){
+        modeloReporte.addColumn("Empleado"); 
+        modeloReporte.addColumn("Cliente");
+        modeloReporte.addColumn("Monto");         
+     }
     public void actualizarTablaProductos(GestionadorProducto GesProduct) {
         modeloProducto.setRowCount(0); // Limpiar la tabla
         llenarDatosProducto(GesProduct); // Llenar la tabla con los datos actualizados
     }
+    
+    public void actualizarTablaVendedor(GestionadorVendedor GesVendedor) {
+        modeloEmpleado.setRowCount(0); // Limpiar la tabla
+        llenarDatosEmpleado(GesVendedor); // Llenar la tabla con los datos actualizados
+    }
+    public void actualizarTablaReporte(ListaEnlazada listaReportes) {
+        modeloReporte.setRowCount(0); // Limpiar la tabla
+        llenarDatosReporte(listaReportes); // Llenar la tabla con los datos actualizados
+    }
+    
     private void llenarDatosProducto(GestionadorProducto GesProduct){
         //DATOS
         
@@ -83,7 +118,37 @@ public class Vista_Admi extends javax.swing.JPanel {
             modeloEmpleado.addRow(fila);
         }
     }
-     
+    private void llenarDatosReporte(ListaEnlazada listaReportes) {
+        Nodo actual = listaReportes.cabeza;
+        while (actual != null) {
+            Object[] fila = {actual.getVendedor(), actual.getCliente(), actual.getMonto()};
+            modeloReporte.addRow(fila);
+            actual = actual.getSiguiente();
+        }
+    }
+    private void ordenarDatosReporte() {
+        // Leer los datos de la tabla en una lista de objetos Fila
+        List<Fila> filas = new ArrayList<>();
+        for (int i = 0; i < modeloReporte.getRowCount(); i++) {
+            String vendedor = (String) modeloReporte.getValueAt(i, 0);
+            String cliente = (String) modeloReporte.getValueAt(i, 1);
+            double monto = Double.parseDouble((String) modeloReporte.getValueAt(i, 2));
+            filas.add(new Fila(vendedor, cliente, monto));
+        }
+
+        // Convertir la lista a un array para ordenar
+        Fila[] arrayFilas = filas.toArray(new Fila[0]);
+        MergeSort.mergeSort(arrayFilas);
+
+        // Limpiar la tabla
+        modeloReporte.setRowCount(0);
+
+        // Añadir las filas ordenadas de nuevo a la tabla
+        for (Fila fila : arrayFilas) {
+            Object[] filaDatos = {fila.vendedor, fila.cliente, String.valueOf(fila.monto)};
+            modeloReporte.addRow(filaDatos);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -120,10 +185,16 @@ public class Vista_Admi extends javax.swing.JPanel {
         cantProducto = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        Reporte = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton9 = new javax.swing.JButton();
         BarraNavegacion = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         Login = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         panelRound1 = new Vistas.PanelRound();
@@ -188,7 +259,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        jButton6.setText("EliminarProducto");
+        jButton6.setText("Eliminar Vendedor");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -228,7 +299,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                 .addGroup(TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 287, Short.MAX_VALUE)
                 .addGroup(TablasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TablasLayout.createSequentialGroup()
                         .addComponent(jButton5)
@@ -306,7 +377,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                     .addComponent(TCodigoVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(46, 46, 46)
                 .addComponent(btn_RegistrarVendedor)
-                .addContainerGap(266, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         contenedor.add(Registrar_Vende, "card3");
@@ -362,7 +433,7 @@ public class Vista_Admi extends javax.swing.JPanel {
                             .addComponent(nomProducto)
                             .addComponent(codProducto)
                             .addComponent(precioProducto))
-                        .addContainerGap(685, Short.MAX_VALUE))))
+                        .addContainerGap(687, Short.MAX_VALUE))))
             .addGroup(Registrar_ProdLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_RegistrarProducto)
@@ -394,10 +465,48 @@ public class Vista_Admi extends javax.swing.JPanel {
                         .addGroup(Registrar_ProdLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel15))))
-                .addContainerGap(315, Short.MAX_VALUE))
+                .addContainerGap(426, Short.MAX_VALUE))
         );
 
         contenedor.add(Registrar_Prod, "card4");
+
+        Reporte.setBackground(new java.awt.Color(204, 255, 204));
+
+        jTable1.setModel(modeloReporte);
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton9.setText("Ordenar");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ReporteLayout = new javax.swing.GroupLayout(Reporte);
+        Reporte.setLayout(ReporteLayout);
+        ReporteLayout.setHorizontalGroup(
+            ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteLayout.createSequentialGroup()
+                .addGap(74, 74, 74)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(144, 144, 144)
+                .addComponent(jButton9)
+                .addContainerGap(282, Short.MAX_VALUE))
+        );
+        ReporteLayout.setVerticalGroup(
+            ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ReporteLayout.createSequentialGroup()
+                .addContainerGap(200, Short.MAX_VALUE)
+                .addGroup(ReporteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ReporteLayout.createSequentialGroup()
+                        .addComponent(jButton9)
+                        .addGap(86, 86, 86))))
+        );
+
+        contenedor.add(Reporte, "card5");
 
         VistaAdmin.add(contenedor, java.awt.BorderLayout.CENTER);
 
@@ -427,6 +536,22 @@ public class Vista_Admi extends javax.swing.JPanel {
         });
         BarraNavegacion.add(jButton3);
 
+        jButton7.setText("Cliente");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        BarraNavegacion.add(jButton7);
+
+        jButton8.setText("Reporte de ventas");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        BarraNavegacion.add(jButton8);
+
         VistaAdmin.add(BarraNavegacion, java.awt.BorderLayout.PAGE_START);
 
         add(VistaAdmin, "card3");
@@ -441,8 +566,11 @@ public class Vista_Admi extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 48)); // NOI18N
         jLabel1.setText("Iniciar sesion");
 
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel2.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
         jLabel2.setText("Usuario");
 
+        jLabel3.setFont(new java.awt.Font("Helvetica Neue", 2, 14)); // NOI18N
         jLabel3.setText("Contraseña");
 
         jButton4.setText("Iniciar Sesion");
@@ -475,15 +603,12 @@ public class Vista_Admi extends javax.swing.JPanel {
                         .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jButton4)
-                            .addComponent(T1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(T1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(T2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
                     .addGroup(panelRound1Layout.createSequentialGroup()
                         .addGap(36, 36, 36)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(panelRound1Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(T2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         panelRound1Layout.setVerticalGroup(
@@ -491,15 +616,15 @@ public class Vista_Admi extends javax.swing.JPanel {
             .addGroup(panelRound1Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
                 .addGap(31, 31, 31)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
                 .addComponent(T1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3)
-                .addGap(36, 36, 36)
+                .addGap(30, 30, 30)
                 .addComponent(T2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(43, 43, 43)
                 .addComponent(jButton4)
                 .addContainerGap(118, Short.MAX_VALUE))
         );
@@ -522,14 +647,14 @@ public class Vista_Admi extends javax.swing.JPanel {
         LoginLayout.setVerticalGroup(
             LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
-                .addContainerGap(54, Short.MAX_VALUE)
+                .addContainerGap(106, Short.MAX_VALUE)
                 .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(LoginLayout.createSequentialGroup()
                         .addGap(96, 96, 96)
                         .addComponent(jLabel6)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
-                        .addGap(0, 54, Short.MAX_VALUE)
+                        .addGap(0, 107, Short.MAX_VALUE)
                         .addGroup(LoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LoginLayout.createSequentialGroup()
                                 .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -586,15 +711,32 @@ public class Vista_Admi extends javax.swing.JPanel {
         String nombre = TNombreVendedor.getText();
         String apellido = TApellidoVendedor.getText();
         String codigo = TCodigoVendedor.getText();
-        
-        GestionadorVendedor  ges = new GestionadorVendedor();
-        ges.Registrar(nombre,apellido, codigo);
 
-        JOptionPane.showMessageDialog(null, "Vendedor registrado");   
-        llenarDatosEmpleado(ges);
-        TNombreVendedor.setText("");
-        TApellidoVendedor.setText("");
-        TCodigoVendedor.setText("");
+        if (GesVendedor.existeVendedor(codigo)) {
+            JOptionPane.showMessageDialog(null, "Ya existe un vendedor registrado con ese código", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        try{
+            boolean registroExitoso = GesVendedor.Registrar(nombre, apellido, codigo);
+
+            if (registroExitoso) {
+                JOptionPane.showMessageDialog(null, "Vendedor registrado con éxito");
+                GesVendedor.LeerDatosXML();
+                actualizarTablaVendedor(GesVendedor);
+                vistaAdmi.actualizarTablaVendedor(GesVendedor);
+
+                TNombreVendedor.setText("");
+                TApellidoVendedor.setText("");
+                TCodigoVendedor.setText("");
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar el vendedor. Se ha alcanzado el límite de vendedores.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores válidos para nombre y apellido", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_RegistrarVendedorActionPerformed
 
     private void TNombreVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TNombreVendedorActionPerformed
@@ -605,18 +747,34 @@ public class Vista_Admi extends javax.swing.JPanel {
         //registrar producto
         String nombre = nomProducto.getText();
         String ID = codProducto.getText();
-        float precio = Float.parseFloat(precioProducto.getText());
-        int cantidad = Integer.parseInt(cantProducto.getText());
-        
-        GesProduct.registroProducto(nombre, ID, precio, cantidad);
-        JOptionPane.showMessageDialog(null, "Producto registrado");
-        GesProduct.LeerDatosXML();
-        actualizarTablaProductos(GesProduct);
-        vistaVendedor.actualizarTablaProductos(GesProduct);
-        nomProducto.setText("");
-        codProducto.setText("");
-        precioProducto.setText("");
-        cantProducto.setText("");
+
+        if (GesProduct.existeProducto(ID)) {
+            JOptionPane.showMessageDialog(null, "Ya existe un producto registrado con ese ID", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            float precio = Float.parseFloat(precioProducto.getText());
+            int cantidad = Integer.parseInt(cantProducto.getText());
+
+            boolean registroExitoso = GesProduct.registroProducto(ID,nombre, precio, cantidad);
+
+            if (registroExitoso) {
+                JOptionPane.showMessageDialog(null, "Producto registrado con éxito");
+                GesProduct.LeerDatosXML();
+                actualizarTablaProductos(GesProduct);
+                vistaVendedor.actualizarTablaProductos(GesProduct);
+                
+                nomProducto.setText("");
+                codProducto.setText("");
+                precioProducto.setText("");
+                cantProducto.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "No se pudo registrar el producto. Se ha alcanzado el límite de productos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese valores numéricos válidos para precio y cantidad", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btn_RegistrarProductoActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -670,11 +828,30 @@ public class Vista_Admi extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_T2ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    this.gestionadorGrafo = new GestionadorGrafo(this.grafo);
+            this.gestionadorGrafo.setVisible(true);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        Reporte.setVisible(true);
+        Tablas.setVisible(false);
+        Registrar_Vende.setVisible(false);
+        Registrar_Prod.setVisible(false);
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        actualizarTablaReporte(lista);
+        ordenarDatosReporte();  
+        
+    }//GEN-LAST:event_jButton9ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel BarraNavegacion;
     private javax.swing.JPanel Login;
     private javax.swing.JPanel Registrar_Prod;
     private javax.swing.JPanel Registrar_Vende;
+    private javax.swing.JPanel Reporte;
     private javax.swing.JTextField T1;
     private javax.swing.JTextField T2;
     private javax.swing.JTextField TApellidoVendedor;
@@ -693,6 +870,9 @@ public class Vista_Admi extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -710,8 +890,10 @@ public class Vista_Admi extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField nomProducto;
     private Vistas.PanelRound panelRound1;
     private javax.swing.JTextField precioProducto;

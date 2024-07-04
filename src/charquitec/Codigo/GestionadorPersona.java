@@ -7,7 +7,7 @@ public abstract class GestionadorPersona {
     int numDato=0;
     public  Persona [] unPersona;
     
-    public abstract void Registrar(String nombre,String apellido, String codigo);
+    public abstract boolean Registrar(String nombre,String apellido, String codigo);
     public abstract void Eliminar(String codigo);
     public abstract void LeerDatosXML();
     
