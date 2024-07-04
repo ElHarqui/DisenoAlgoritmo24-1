@@ -45,15 +45,29 @@ public class GestionadorCliente extends GestionadorPersona {
         List<String> UsuariosLeidos = Data.LeerArchivoXML();  //Guardar cada linea en un espacio del List<String>
         int tamano = UsuariosLeidos.size();                   //Obtener el largo del List<String>
         String UsuarioLeido ; 
+        String UsuarioLeido2[][] = new String[tamano][3];
         if (tamano < +MAX){                               //Solo si no sobrepasa el maximo  se procede a crear los objetos tipo cliente y agregarlos al Lista de objetos
             for (int i = 0; i < tamano; i++){
-               UsuarioLeido = UsuariosLeidos.get(i);
-               String[] DataUsuario = UsuarioLeido.split(";");
+                UsuarioLeido = UsuariosLeidos.get(i);
+                String[] DataUsuario = UsuarioLeido.split(";");
+                UsuarioLeido2[i][1] = DataUsuario[1];
+                UsuarioLeido2[i][2] = DataUsuario[2];
+                UsuarioLeido2[i][0] = DataUsuario[0];
+               
                Cliente ObjDato = new Cliente(DataUsuario[1] ,DataUsuario[2],DataUsuario[0]);
                this.unPersona[numDato]=ObjDato;
                numDato = numDato+1;        
 
-           }           
+           }
+           MergeSortArray SortArray = new MergeSortArray();
+           SortArray.mergeSortArray(UsuarioLeido2);
+           for(int i = 0 ; i < tamano ; i++){
+                Cliente ObjDato = new Cliente(UsuarioLeido2[i][1] ,UsuarioLeido2[i][2],UsuarioLeido2[i][0]);
+                this.unPersona[numDato]=ObjDato;
+                numDato = numDato+1;   
+           }
+           
+            
         }else{
             System.out.println("Limite de clientes sobrepasado");
         }

@@ -1,30 +1,31 @@
 package charquitec.Codigo;
 
-public class MergeSort {
-    public static void mergeSort(Fila[] array) {
+public class MergeSortArray {
+    public static void mergeSortArray(String[][] array) {
         if (array.length <= 1) {
             return;
         }
 
         int mid = array.length / 2;
-        Fila[] left = new Fila[mid];
-        Fila[] right = new Fila[array.length - mid];
+        String[][] left = new String[mid][3];
+        String[][] right = new String[array.length - mid][3];
 
         System.arraycopy(array, 0, left, 0, mid);
         System.arraycopy(array, mid, right, 0, array.length - mid);
 
-        mergeSort(left);
-        mergeSort(right);
+        mergeSortArray(left);
+        mergeSortArray(right);
+
         merge(array, left, right);
     }
     
-  
-    
 
-    private static void merge(Fila[] result, Fila[] left, Fila[] right) {
+    private static void merge(String[][] result, String[][] left, String[][] right) {
         int i = 0, j = 0, k = 0;
         while (i < left.length && j < right.length) {
-            if (left[i].monto <= right[j].monto) {
+            int leftValue = Integer.parseInt(left[i][1]);
+            int rightValue = Integer.parseInt(right[j][1]);
+            if (leftValue <= rightValue) {
                 result[k++] = left[i++];
             } else {
                 result[k++] = right[j++];
